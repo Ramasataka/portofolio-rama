@@ -16,7 +16,7 @@ Route::post('/contact', [ContactController::class, 'send'])->name('contact.send'
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::resource('projects', ProjectController::class);
+    Route::resource('projects', ProjectController::class)->only(['index', 'store', 'destroy']);
     Route::post('/profile/upload-cv', [DashboardController::class, 'uploadCv'])->name('profile.uploadCv');
     Route::post('/add-skill', [TechStackController::class, 'addSkill'])->name('add.skill');
     Route::delete('/destroy-skill/{skill}', [TechStackController::class, 'destroySkill'])->name('destroy.skill');

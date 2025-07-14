@@ -122,6 +122,14 @@ class ProjectController extends Controller
             $image->delete();
         }
 
+        foreach ($project->link_projects as $link) {
+            $link->delete();
+        }
+
+        foreach ($project->tech_stacks as $tech) {
+            $tech->delete();
+        }
+
         
         $project->delete();
         return back()->with('success', 'Project deleted successfully');
