@@ -42,13 +42,24 @@
                             <span>Kosong</span>
                         @else
                             @foreach ($tech_stacks as $tech_stack) 
-                                <span class="px-4 py-2 rounded-full text-sm font-medium text-white" style="background-color: #222831;">{{ $tech_stack->tech_stack }}</span>
+                                <span class="px-4 py-2 rounded-full text-sm font-medium text-white" style="background-color: #222831;">
+                                    {{ $tech_stack->tech_stack }}
+                                </span>
                             @endforeach
                         @endif
                     </div>
-                </div>
+                {{-- Tombol Download CV --}}
+            </div>
+            <div class="mt-8 text-center">
+                <a href="{{ asset('storage/' . $user->cv) }}" download
+                   class="inline-block px-6 py-3 bg-[#222831] text-white font-semibold rounded-full shadow-md hover:bg-[#393E46] transition duration-300">
+                    Download CV
+                </a>
             </div>
         </section>
+
+        <div class="w-40 h-1 mx-auto my-16 bg-gradient-to-r from-[#222831] via-gray-400 to-[#222831] rounded-full opacity-80"></div>
+
 
         <section id="projects" class="py-16 px-4" style="background-color: #f1f2f6;">
             <div class="max-w-6xl mx-auto">

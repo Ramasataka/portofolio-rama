@@ -17,7 +17,7 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['au
 
 Route::middleware('auth')->group(function () {
     Route::resource('projects', ProjectController::class);
-
+    Route::post('/profile/upload-cv', [DashboardController::class, 'uploadCv'])->name('profile.uploadCv');
     Route::post('/add-skill', [TechStackController::class, 'addSkill'])->name('add.skill');
     Route::delete('/destroy-skill/{skill}', [TechStackController::class, 'destroySkill'])->name('destroy.skill');
     Route::put('/update-information', [DashboardController::class, 'updateInformation'])->name('update.information');

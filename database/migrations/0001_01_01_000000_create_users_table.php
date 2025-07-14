@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->string('role');
             $table->string('description')->nullable();
+            $table->string('cv')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

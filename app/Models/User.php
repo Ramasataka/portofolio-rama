@@ -27,7 +27,8 @@ class User extends Authenticatable
         'linkedin_link',
         'description',
         'image',
-        'role'
+        'role',
+        'cv'
     ];
 
     /**

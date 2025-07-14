@@ -172,6 +172,51 @@
         </div>
     </div>
 
+    <!-- Form Upload CV -->
+    <div class="py-6">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900">
+                    <h3 class="text-lg font-medium mb-4">Upload CV</h3>
+
+                    @if (session('cv_success'))
+                        <div class="mb-4 px-4 py-3 bg-green-100 border border-green-400 text-green-700 rounded">
+                            {{ session('cv_success') }}
+                        </div>
+                    @endif
+
+                    <form action="{{ route('profile.uploadCv') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
+                        @csrf
+
+                        <div>
+                            <label for="cv_file" class="block text-sm font-medium text-gray-700 mb-1">Upload CV (PDF only)</label>
+                            <input type="file" name="cv_file" id="cv_file" accept=".pdf"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring focus:border-[#222831]"
+                                required>
+                        </div>
+
+                        <button type="submit"
+                            class="px-6 py-2 bg-[#222831] text-white rounded-lg hover:bg-[#393E46] transition font-semibold">
+                            Simpan CV
+                        </button>
+                    </form>
+                    
+                    {{-- Optional Preview --}}
+                    @if($user->cv)
+                        <div class="mt-4">
+                            <p class="text-sm text-gray-600 mb-1">CV saat ini:</p>
+                            <a href="{{ asset('storage/' . $user->cv) }}" target="_blank" class="text-blue-600 hover:underline text-sm">
+                                Lihat CV
+                            </a>
+                        </div>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const editBtn = document.getElementById('edit-btn');
