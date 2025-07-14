@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('link_projects', function (Blueprint $table) {
             $table->id();
             $table->foreignId('project_id')->constrained();
-            $table->string('link');
-            $table->string('links_type');
+            $table->text('link');
+            $table->text('links_type');
             $table->timestamps();
         });
     }
