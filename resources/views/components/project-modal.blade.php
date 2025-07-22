@@ -1,4 +1,23 @@
 {{-- components/project-modal.blade.php --}}
+<style>
+    #imageModal {
+        transition: opacity 0.3s ease;
+    }
+    
+    #modalImage {
+        max-height: 80vh;
+    }
+    
+    /* Animasi untuk modal */
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    
+    #imageModal {
+        animation: fadeIn 0.3s ease-out;
+    }
+</style>
 <div id="project{{ $project->id }}-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
     <div class="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
         <div class="p-6">
@@ -10,33 +29,50 @@
                     </svg>
                 </button>
             </div>
-
-            {{-- Image Slider --}}
-            @if($project->images->isNotEmpty())
-                <div class="relative mb-6">
-                    <div class="slider-container overflow-hidden rounded-lg">
-                        <div class="slider-wrapper flex transition-transform duration-300" id="project{{ $project->id }}-slider">
-                            @foreach($project->images as $image)
-                                <div class="w-full flex-shrink-0">
-                                    <img src="{{ asset('storage/' . $image->image) }}" alt="{{ $project->title }}" class="w-full h-64 object-cover">
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-
-                    {{-- Controls --}}
-                    <button onclick="previousSlide('project{{ $project->id }}')" class="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 rounded-full p-2 hover:bg-opacity-100">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            <!-- Modal untuk menampilkan gambar full size -->
+            <div id="imageModal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-75 items-center justify-center p-4">
+                <div class="relative max-w-4xl w-full">
+                    <button onclick="closeModal()" class="absolute -top-10 right-0 text-white hover:text-gray-300">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                         </svg>
                     </button>
-                    <button onclick="nextSlide('project{{ $project->id }}')" class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 rounded-full p-2 hover:bg-opacity-100">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                        </svg>
-                    </button>
+                    <img id="modalImage" src="" alt="" class="w-full max-h-screen object-contain">
                 </div>
-            @endif
+            </div>
+            {{-- Image Slider --}}
+        @if($project->images->isNotEmpty())
+            <div class="relative mb-6">
+                <div class="slider-container overflow-hidden rounded-lg">
+                    <div class="slider-wrapper flex transition-transform duration-300" id="project{{ $project->id }}-slider">
+                        @foreach($project->images as $image)
+                            <div class="w-full flex-shrink-0 relative group cursor-pointer" onclick="openModal('{{ asset('storage/' . $image->image) }}')">
+                                <img src="{{ asset('storage/' . $image->image) }}" 
+                                    alt="{{ $project->title }}" 
+                                    class="w-full h-64 object-cover transition-all duration-300 group-hover:opacity-90">
+                                <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300 flex items-center justify-center">
+                                    <svg class="w-10 h-10 text-white opacity-0 group-hover:opacity-70 transition-opacity duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                    </svg>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+
+                {{-- Controls --}}
+                <button onclick="previousSlide('project{{ $project->id }}')" class="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 rounded-full p-2 hover:bg-opacity-100">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                </button>
+                <button onclick="nextSlide('project{{ $project->id }}')" class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 rounded-full p-2 hover:bg-opacity-100">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                </button>
+            </div>
+        @endif
 
             {{-- Description --}}
             <div class="space-y-4">
@@ -92,3 +128,36 @@
         </div>
     </div>
 </div>
+
+<script>
+    // Fungsi untuk membuka modal dengan gambar yang diklik
+    function openModal(imageSrc) {
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        modalImg.src = imageSrc;
+        
+        // Tambahkan event untuk menutup modal ketika mengklik area sekitar gambar
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+        
+        // Tambahkan event untuk menutup modal dengan tombol ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+    }
+    
+    // Fungsi untuk menutup modal
+    function closeModal() {
+        const modal = document.getElementById('imageModal');
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+    }
+</script>
