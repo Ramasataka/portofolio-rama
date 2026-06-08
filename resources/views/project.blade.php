@@ -1,12 +1,12 @@
 <x-app-layout>
     @if(session('success'))
-        <div class="mb-4 px-4 py-3 bg-green-100 border border-green-400 text-green-700 rounded relative" role="alert">
+        <div class="mb-4 px-4 py-3 bg-emerald-50 border border-emerald-200 text-emerald-700 rounded-lg shadow-sm relative max-w-7xl mx-auto mt-4" role="alert">
             <span class="block sm:inline">{{ session('success') }}</span>
         </div>
     @endif
 
     @if(session('error'))
-        <div class="mb-4 px-4 py-3 bg-red-100 border border-red-400 text-red-700 rounded relative" role="alert">
+        <div class="mb-4 px-4 py-3 bg-red-50 border border-red-200 text-red-700 rounded-lg shadow-sm relative max-w-7xl mx-auto mt-4" role="alert">
             <span class="block sm:inline">{{ session('error') }}</span>
         </div>
     @endif
@@ -14,62 +14,64 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <!-- Form Tambah Project -->
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-8">
-                <div class="p-6">
-                    <h2 class="text-lg font-medium mb-4">Add New Project</h2>
-                    <div class="max-w-3xl mx-auto p-6 bg-white shadow rounded-lg">
+            <div class="bg-white overflow-hidden shadow-md sm:rounded-2xl border border-slate-100 mb-10">
+                <div class="p-8">
+                    <h2 class="text-2xl font-bold mb-6 text-slate-800 flex items-center">
+                        <svg class="w-6 h-6 mr-2 text-sky-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        Add New Project
+                    </h2>
+                    <div class="max-w-4xl mx-auto p-8 bg-slate-50/50 shadow-inner rounded-xl border border-slate-100">
                         <form action="{{ route('projects.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
-                                    <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
+                                    <label for="title" class="block text-sm font-semibold text-slate-700">Title</label>
                                     <input type="text" name="title" id="title" required
-                                        class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
-                                        
-                                    </div>
+                                        class="mt-2 block w-full border border-slate-300 rounded-lg shadow-sm focus:border-sky-500 focus:ring focus:ring-sky-500/20 transition-colors">
+                                </div>
 
                                 <div>
-                                    <label for="description_thumbnail" class="block text-sm font-medium text-gray-700">Small description</label>
+                                    <label for="description_thumbnail" class="block text-sm font-semibold text-slate-700">Small description</label>
                                     <textarea name="description_thumbnail" id="description_thumbnail" rows="3" required
-                                        class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"></textarea>
+                                        class="mt-2 block w-full border border-slate-300 rounded-lg shadow-sm focus:border-sky-500 focus:ring focus:ring-sky-500/20 transition-colors"></textarea>
                                 </div>
 
                                 <div class="md:col-span-2">
-                                    <label for="key_feature" class="block text-sm font-medium text-gray-700">Key Features (comma separated)</label>
+                                    <label for="key_feature" class="block text-sm font-semibold text-slate-700">Key Features (comma separated)</label>
                                     <textarea name="key_feature" id="key_feature" rows="2" required
-                                        class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"></textarea>
+                                        class="mt-2 block w-full border border-slate-300 rounded-lg shadow-sm focus:border-sky-500 focus:ring focus:ring-sky-500/20 transition-colors"></textarea>
                                 </div>
 
                                 <div class="md:col-span-2">
-                                    <label for="description" class="block text-sm font-medium text-gray-700">description</label>
+                                    <label for="description" class="block text-sm font-semibold text-slate-700">Detailed Description</label>
                                     <textarea name="description" id="description" rows="2" required
-                                        class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"></textarea>
+                                        class="mt-2 block w-full border border-slate-300 rounded-lg shadow-sm focus:border-sky-500 focus:ring focus:ring-sky-500/20 transition-colors"></textarea>
                                 </div>
 
                                 <div class="md:col-span-2">
-                                    <label class="block text-sm font-medium text-gray-700">Tech Stack</label>
+                                    <label class="block text-sm font-semibold text-slate-700">Tech Stack</label>
                                     <div id="tech-stack-container">
                                         <div class="flex items-center gap-2 mb-2">
                                             <input type="text" name="tech_stacks[]" 
-                                                class="flex-grow border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
-                                            <button type="button" onclick="removeTechStackField(this)" class="text-red-500 hover:text-red-700">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                class="flex-grow border border-slate-300 rounded-lg shadow-sm focus:border-sky-500 focus:ring focus:ring-sky-500/20 mt-2 transition-colors">
+                                            <button type="button" onclick="removeTechStackField(this)" class="text-red-400 hover:text-red-600 transition-colors mt-2 p-2">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
                                                     <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
                                                 </svg>
                                             </button>
                                         </div>
                                     </div>
-                                    <button type="button" onclick="addTechStackField()" class="mt-2 inline-flex items-center px-3 py-1 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                    <button type="button" onclick="addTechStackField()" class="mt-3 inline-flex items-center px-4 py-2 border border-sky-200 shadow-sm text-sm font-medium rounded-lg text-sky-700 bg-sky-50 hover:bg-sky-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 transition-colors">
                                         Add Tech Stack
                                     </button>
                                 </div>
 
                                 <div class="md:col-span-2">
-                                    <label class="block text-sm font-medium text-gray-700">Project Links</label>
+                                    <label class="block text-sm font-semibold text-slate-700">Project Links</label>
                                     <div id="project-links-container">
                                         <div class="grid grid-cols-12 gap-2 mb-2">
                                             <div class="col-span-5">
-                                                <select name="link_types[]" class="block w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                                                <select name="link_types[]" class="block w-full border border-slate-300 rounded-lg shadow-sm focus:border-sky-500 focus:ring focus:ring-sky-500/20 mt-2 transition-colors">
                                                     <option value="github">GitHub</option>
                                                     <option value="demo">Live Demo</option>
                                                     <option value="website">Website</option>
@@ -78,26 +80,26 @@
                                             </div>
                                             <div class="col-span-6">
                                                 <input type="url" name="links[]" placeholder="URL" 
-                                                    class="block w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                                                    class="block w-full border border-slate-300 rounded-lg shadow-sm focus:border-sky-500 focus:ring focus:ring-sky-500/20 mt-2 transition-colors">
                                             </div>
-                                            <div class="col-span-1">
-                                                <button type="button" onclick="removeProjectLinkField(this)" class="text-red-500 hover:text-red-700">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                            <div class="col-span-1 flex items-center justify-center">
+                                                <button type="button" onclick="removeProjectLinkField(this)" class="text-red-400 hover:text-red-600 transition-colors mt-2 p-2">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
                                                         <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
                                                     </svg>
                                                 </button>
                                             </div>
                                         </div>
                                     </div>
-                                    <button type="button" onclick="addProjectLinkField()" class="mt-2 inline-flex items-center px-3 py-1 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                    <button type="button" onclick="addProjectLinkField()" class="mt-3 inline-flex items-center px-4 py-2 border border-sky-200 shadow-sm text-sm font-medium rounded-lg text-sky-700 bg-sky-50 hover:bg-sky-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 transition-colors">
                                         Add Project Link
                                     </button>
                                 </div>
 
                                 <div class="md:col-span-2">
-                                    <label for="images" class="block text-sm font-medium text-gray-700">Project Images</label>
+                                    <label for="images" class="block text-sm font-semibold text-slate-700">Project Images</label>
                                     <input type="file" name="images[]" id="images" multiple accept="image/*"
-                                        class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                                        class="mt-2 block w-full border border-slate-300 rounded-lg shadow-sm focus:border-sky-500 focus:ring focus:ring-sky-500/20 text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-sky-50 file:text-sky-700 hover:file:bg-sky-100 transition-colors"
                                         onchange="previewMultipleImages(event)">
                                     
                                     @error('images')
@@ -108,9 +110,9 @@
                                 </div>
 
                                 <div class="md:col-span-2">
-                                    <label for="thumbnail" class="block text-sm font-medium text-gray-700">Project Thumbnail</label>
+                                    <label for="thumbnail" class="block text-sm font-semibold text-slate-700">Project Thumbnail</label>
                                     <input type="file" name="thumbnail" id="thumbnail" accept="image/*"
-                                        class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                                        class="mt-2 block w-full border border-slate-300 rounded-lg shadow-sm focus:border-sky-500 focus:ring focus:ring-sky-500/20 text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-sky-50 file:text-sky-700 hover:file:bg-sky-100 transition-colors"
                                         onchange="previewThumbnail(event)">
                                     
                                     @error('thumbnail')
@@ -122,9 +124,10 @@
 
                             </div>
 
-                            <div class="flex justify-end mt-6">
+                            <div class="flex justify-end mt-8 border-t border-slate-200 pt-6">
                                 <button type="submit"
-                                    class="px-4 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600 transition-colors duration-200">
+                                    class="inline-flex items-center px-6 py-3 bg-sky-600 text-white font-bold rounded-xl shadow-md shadow-sky-600/30 hover:bg-sky-700 hover:shadow-sky-600/50 hover:-translate-y-0.5 transition-all duration-300">
+                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path></svg>
                                     Save Project
                                 </button>
                             </div>
@@ -134,36 +137,41 @@
             </div>
 
 <!-- Daftar Projects -->
-<div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-    <div class="p-6">
-        <h2 class="text-lg font-medium mb-4">My Projects</h2>
+<div class="bg-white overflow-hidden shadow-md sm:rounded-2xl border border-slate-100">
+    <div class="p-8">
+        <h2 class="text-2xl font-bold mb-8 text-slate-800 flex items-center">
+            <svg class="w-6 h-6 mr-2 text-sky-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+            My Projects
+        </h2>
 
         @if($projects->isEmpty())
-            <p class="text-gray-500">No projects yet.</p>
+            <div class="text-center py-12 bg-slate-50 rounded-xl border border-dashed border-slate-200">
+                <p class="text-slate-500 font-medium">No projects yet. Add one above!</p>
+            </div>
         @else
             <!-- Table untuk Admin -->
-            <div class="hidden md:block overflow-x-auto mb-8">
-                <table class="min-w-full divide-y divide-gray-200">
-                    <thead class="bg-gray-50">
+            <div class="hidden md:block overflow-x-auto mb-10 rounded-xl border border-slate-200">
+                <table class="min-w-full divide-y divide-slate-200">
+                    <thead class="bg-sky-50/50">
                         <tr>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tech Stack</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Links</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                            <th class="px-6 py-4 text-left text-xs font-bold text-sky-800 uppercase tracking-wider">Title</th>
+                            <th class="px-6 py-4 text-left text-xs font-bold text-sky-800 uppercase tracking-wider">Tech Stack</th>
+                            <th class="px-6 py-4 text-left text-xs font-bold text-sky-800 uppercase tracking-wider">Links</th>
+                            <th class="px-6 py-4 text-left text-xs font-bold text-sky-800 uppercase tracking-wider">Actions</th>
                         </tr>
                     </thead>
-                    <tbody class="bg-white divide-y divide-gray-200">
+                    <tbody class="bg-white divide-y divide-slate-200">
                         @foreach($projects as $project)
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap">{{ $project->title }}</td>
+                            <tr class="hover:bg-slate-50 transition-colors duration-150">
+                                <td class="px-6 py-4 whitespace-nowrap font-medium text-slate-800">{{ $project->title }}</td>
                                 <td class="px-6 py-4">
                                     @foreach($project->tech_stacks as $tech)
-                                        <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-1 mb-1">{{ $tech->tech_stack }}</span>
+                                        <span class="inline-block bg-slate-100 rounded-md px-2.5 py-1 text-xs font-semibold text-slate-600 mr-1 mb-1 border border-slate-200">{{ $tech->tech_stack }}</span>
                                     @endforeach
                                 </td>
                                 <td class="px-6 py-4">
                                     @foreach($project->link_projects as $link)
-                                        <a href="{{ $link->link }}" target="_blank" class="inline-flex items-center text-blue-600 hover:text-blue-800 mr-3">
+                                        <a href="{{ $link->link }}" target="_blank" class="inline-flex items-center text-sky-600 hover:text-sky-800 font-medium mr-3 transition-colors">
                                             {{ ucfirst($link->links_type) }}
                                         </a>
                                     @endforeach
@@ -172,7 +180,7 @@
                                     <form method="POST" action="{{ route('projects.destroy', $project->id) }}" class="inline">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="text-red-600 hover:text-red-900" onclick="return confirm('Are you sure?')">Delete</button>
+                                        <button type="submit" class="px-3 py-1.5 bg-red-50 text-red-600 hover:bg-red-100 hover:text-red-700 rounded-lg text-sm font-semibold transition-colors" onclick="return confirm('Are you sure you want to delete this project?')">Delete</button>
                                     </form>
                                 </td>
                             </tr>
@@ -184,23 +192,26 @@
             <!-- Card View untuk Semua Pengguna -->
             <div class="grid md:grid-cols-2 gap-8">
                 @foreach($projects as $project)
-                    <div class="project-card bg-white rounded-lg shadow-lg overflow-hidden cursor-pointer transform transition duration-300 hover:scale-105 hover:shadow-xl" 
+                    <div class="group bg-white rounded-2xl shadow-md border border-slate-100 overflow-hidden cursor-pointer transform transition-all duration-300 hover:-translate-y-2 hover:shadow-xl flex flex-col" 
                         onclick="openProjectModal('project{{ $project->id }}')">
-                        <div class="h-64 bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center">
-                            <img src="{{ asset('storage/' . $project->thumbnail) }}" alt="{{ $project->title }}" class="w-full h-full object-cover">
+                        <div class="h-64 relative overflow-hidden bg-slate-100 flex items-center justify-center">
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"></div>
+                            <img src="{{ asset('storage/' . $project->thumbnail) }}" alt="{{ $project->title }}" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out">
                         </div>
-                        <div class="p-6">
-                            <h3 class="text-xl font-bold mb-2 text-gray-800">{{ $project->title }}</h3>
-                            <p class="text-gray-600">{{ Str::limit($project->description_thumbnail, 100) }}</p>
-                            <div class="mt-4 flex flex-wrap gap-2">
+                        <div class="p-8 flex flex-col flex-grow">
+                            <h3 class="text-2xl font-bold mb-3 text-slate-800 group-hover:text-sky-600 transition-colors">{{ $project->title }}</h3>
+                            <p class="text-slate-500 flex-grow">{{ Str::limit($project->description_thumbnail, 100) }}</p>
+                            
+                            <div class="mt-6 pt-4 border-t border-slate-100 flex flex-wrap gap-2">
                                 @foreach($project->tech_stacks as $tech)
-                                    <span class="px-3 py-1 bg-gray-200 text-gray-700 rounded-full text-sm">{{ $tech->tech_stack }}</span>
+                                    <span class="px-3 py-1 bg-slate-50 text-slate-600 border border-slate-200 rounded-lg text-xs font-semibold">{{ $tech->tech_stack }}</span>
                                 @endforeach
                             </div>
                             <div class="mt-4 flex flex-wrap gap-3">
                                 @foreach($project->link_projects as $link)
-                                    <a href="{{ $link->link }}" target="_blank" class="text-blue-600 hover:text-blue-800 text-sm">
+                                    <a href="{{ $link->link }}" target="_blank" class="text-sky-600 hover:text-sky-800 text-sm font-medium flex items-center">
                                         {{ ucfirst($link->links_type) }}
+                                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
                                     </a>
                                 @endforeach
                             </div>
@@ -208,70 +219,89 @@
                     </div>
 
                     <!-- Modal Project -->
-                    <div id="project{{ $project->id }}-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
-                        <div class="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-                            <div class="p-6">
-                                <div class="flex justify-between items-center mb-6">
-                                    <h3 class="text-2xl font-bold text-gray-800">{{ $project->title }}</h3>
-                                    <button onclick="closeProjectModal('project{{ $project->id }}')" class="text-gray-500 hover:text-gray-700">
-                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    <div id="project{{ $project->id }}-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4 transition-opacity duration-300">
+                        <div class="bg-white rounded-3xl max-w-5xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-white/20">
+                            <div class="p-8 md:p-10 relative">
+                                <div class="flex justify-between items-start mb-6">
+                                    <h3 class="text-3xl font-extrabold text-slate-900">{{ $project->title }}</h3>
+                                    <button onclick="closeProjectModal('project{{ $project->id }}')" class="text-slate-400 hover:text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-full p-2 transition-colors focus:outline-none">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12"></path>
                                         </svg>
                                     </button>
                                 </div>
 
                                 @if($project->images->isNotEmpty())
-                                    <div class="relative mb-6">
-                                        <div class="slider-container overflow-hidden rounded-lg">
+                                    <div class="relative mb-8 rounded-2xl overflow-hidden shadow-lg border border-slate-100 group">
+                                        <div class="slider-container overflow-hidden bg-slate-100">
                                             <div class="slider-wrapper flex transition-transform duration-300" id="project{{ $project->id }}-slider">
                                                 @foreach($project->images as $image)
                                                     <div class="w-full flex-shrink-0">
-                                                        <img src="{{ asset('storage/' . $image->image) }}" alt="{{ $project->title }}" class="w-full h-64 object-cover">
+                                                        <img src="{{ asset('storage/' . $image->image) }}" alt="{{ $project->title }}" class="w-full h-80 md:h-[400px] object-cover">
                                                     </div>
                                                 @endforeach
                                             </div>
                                         </div>
-                                        <button onclick="previousSlide('project{{ $project->id }}')" class="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 rounded-full p-2 hover:bg-opacity-100">
-                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <button onclick="previousSlide('project{{ $project->id }}')" class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/90 backdrop-blur text-slate-800 rounded-full p-3 hover:bg-white hover:text-sky-600 transition-all opacity-0 group-hover:opacity-100 shadow-lg">
+                                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
                                             </svg>
                                         </button>
-                                        <button onclick="nextSlide('project{{ $project->id }}')" class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 rounded-full p-2 hover:bg-opacity-100">
-                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <button onclick="nextSlide('project{{ $project->id }}')" class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/90 backdrop-blur text-slate-800 rounded-full p-3 hover:bg-white hover:text-sky-600 transition-all opacity-0 group-hover:opacity-100 shadow-lg">
+                                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                                             </svg>
                                         </button>
                                     </div>
                                 @endif
 
-                                <p class="text-gray-700 leading-relaxed">{{ $project->description }}</p>
+                                <div class="grid md:grid-cols-3 gap-8">
+                                    <div class="md:col-span-2 space-y-6">
+                                        <div>
+                                            <h4 class="text-xl font-bold mb-3 text-slate-800 flex items-center">
+                                                <svg class="w-5 h-5 mr-2 text-sky-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"></path></svg>
+                                                About The Project
+                                            </h4>
+                                            <p class="text-slate-600 leading-relaxed">{{ $project->description }}</p>
+                                        </div>
 
-                                <div class="mt-4">
-                                    <h4 class="font-semibold mb-2 text-gray-800">Key Features:</h4>
-                                    <ul class="list-disc list-inside text-gray-700 space-y-1">
-                                        @foreach(explode(',', $project->key_feature) as $feature)
-                                            <li>{{ trim($feature) }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-
-                                <div class="mt-4">
-                                    <h4 class="font-semibold mb-2 text-gray-800">Tech Stack:</h4>
-                                    <div class="flex flex-wrap gap-2">
-                                        @foreach($project->tech_stacks as $tech)
-                                            <span class="px-3 py-1 bg-gray-200 text-gray-700 rounded-full text-sm">{{ $tech->tech_stack }}</span>
-                                        @endforeach
+                                        <div>
+                                            <h4 class="text-xl font-bold mb-4 text-slate-800 flex items-center">
+                                                <svg class="w-5 h-5 mr-2 text-sky-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                                Key Features
+                                            </h4>
+                                            <ul class="grid sm:grid-cols-2 gap-3">
+                                                @foreach(explode(',', $project->key_feature) as $feature)
+                                                    <li class="flex items-start text-slate-600">
+                                                        <svg class="w-5 h-5 mr-2 text-emerald-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                                        <span>{{ trim($feature) }}</span>
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="mt-4">
-                                    <h4 class="font-semibold mb-2 text-gray-800">Project Links:</h4>
-                                    <div class="flex flex-wrap gap-4">
-                                        @foreach($project->link_projects as $link)
-                                            <a href="{{ $link->link }}" target="_blank" class="text-blue-600 hover:text-blue-800 flex items-center">
-                                                {{ ucfirst($link->links_type) }}
-                                            </a>
-                                        @endforeach
+                                    <div class="space-y-6">
+                                        <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100">
+                                            <h4 class="font-bold mb-4 text-slate-800 text-sm uppercase tracking-wider">Technologies</h4>
+                                            <div class="flex flex-wrap gap-2">
+                                                @foreach($project->tech_stacks as $tech)
+                                                    <span class="px-3 py-1.5 bg-white border border-slate-200 text-slate-700 rounded-lg text-sm font-medium shadow-sm hover:border-sky-300 transition-colors">{{ $tech->tech_stack }}</span>
+                                                @endforeach
+                                            </div>
+                                        </div>
+
+                                        <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100">
+                                            <h4 class="font-bold mb-4 text-slate-800 text-sm uppercase tracking-wider">Project Links</h4>
+                                            <div class="flex flex-col gap-3">
+                                                @foreach($project->link_projects as $link)
+                                                    <a href="{{ $link->link }}" target="_blank" class="inline-flex items-center justify-between px-4 py-3 bg-white border border-slate-200 hover:border-sky-300 text-slate-700 hover:text-sky-600 rounded-xl font-medium transition-all shadow-sm group">
+                                                        {{ ucfirst($link->links_type) }}
+                                                        <svg class="w-4 h-4 transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                                                    </a>
+                                                @endforeach
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
