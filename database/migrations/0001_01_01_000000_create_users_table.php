@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('role');
             $table->string('description')->nullable();
             $table->string('cv')->nullable();
+            $table->boolean('available_for_work')->default(true);
             $table->rememberToken();
             $table->timestamps();
         });

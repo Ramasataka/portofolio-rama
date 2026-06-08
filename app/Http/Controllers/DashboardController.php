@@ -18,31 +18,35 @@ class DashboardController extends Controller
 
     public function updateInformation(Request $request)
     {
-
         $user = User::first();
     
-    $validated = $request->validate([
-        'name' => 'required|string|max:255',
-        'email_contact' => 'required|email|max:255',
-        'phone_contact' => 'required|string|max:20',
-        'github_link' => 'nullable|url',
-        'linkedin_link' => 'nullable|url',
-        'description' => 'nullable|string',
-        'role' => 'required|string|max:255',
-        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif',
-    ]);
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email_contact' => 'required|email|max:255',
+            'phone_contact' => 'required|string|max:20',
+            'github_link' => 'nullable|url',
+            'linkedin_link' => 'nullable|url',
+            'description' => 'nullable|string',
+            'role' => 'required|string|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif',
+            'available_for_work' => 'nullable|boolean',
+        ]);
 
-     try {
-        if ($request->hasFile('image')) {
-            if ($user->image) {
-                Storage::delete('public/' . $user->image);
+        try {
+            $validated['email_contanct'] = $validated['email_contact'];
+            $validated['phone_contanct'] = $validated['phone_contact'];
+            $validated['available_for_work'] = $request->has('available_for_work');
+
+            if ($request->hasFile('image')) {
+                if ($user->image) {
+                    Storage::delete('public/' . $user->image);
+                }
+                
+                // Simpan gambar baru
+                $path = $request->file('image')->store('images', 'public');
+                $validated['image'] = $path;
             }
-            
-            // Simpan gambar baru
-            $path = $request->file('image')->store('images', 'public');
-            $validated['image'] = $path;
-        }
-        $user->update($validated);
+            $user->update($validated);
         
         return redirect()->route('dashboard')->with('success', 'Profile updated successfully!');
     } catch (\Exception $e) {

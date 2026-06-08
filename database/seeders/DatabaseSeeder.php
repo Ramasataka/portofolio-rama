@@ -26,8 +26,12 @@ class DatabaseSeeder extends Seeder
             'linkedin_link' => 'https://www.linkedin.com/in/i-made-rama-putra-wibawa-54a180250/',
             'role' => 'Back-end Web Developer',
             'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.',
+            'available_for_work' => true,
         ]);
 
-        $this->call(ExperienceSeeder::class);
+        $this->call([
+            ExperienceSeeder::class,
+            CertificationSeeder::class,
+        ]);
     }
 }

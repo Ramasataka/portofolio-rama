@@ -7,6 +7,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TechStackController;
 use App\Http\Controllers\ExperienceController;
+use App\Http\Controllers\CertificationController;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
@@ -19,6 +20,7 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['au
 Route::middleware('auth')->group(function () {
     Route::resource('projects', ProjectController::class)->only(['index', 'store', 'destroy']);
     Route::resource('experiences', ExperienceController::class)->only(['index', 'store', 'destroy']);
+    Route::resource('certifications', CertificationController::class)->only(['index', 'store', 'destroy']);
     Route::post('/profile/upload-cv', [DashboardController::class, 'uploadCv'])->name('profile.uploadCv');
     Route::post('/add-skill', [TechStackController::class, 'addSkill'])->name('add.skill');
     Route::delete('/destroy-skill/{skill}', [TechStackController::class, 'destroySkill'])->name('destroy.skill');

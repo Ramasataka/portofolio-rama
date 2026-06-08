@@ -30,7 +30,7 @@
                     <div class="lg:col-span-7 text-left space-y-6">
                         <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-50 border border-blue-100 text-blue-600 rounded-full text-xs font-bold uppercase tracking-wider">
                             <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
-                            Welcome to my website
+                            Welcome to my portofolio
                         </div>
                         
                         <h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-none">
@@ -67,10 +67,10 @@
                         <!-- Call To Action -->
                         <div class="pt-4 flex flex-wrap gap-4">
                             @if($user && $user->cv)
-                                <a href="{{ asset('storage/' . $user->cv) }}" download
+                                <a href="{{ asset('storage/' . $user->cv) }}" target="_blank"
                                    class="inline-flex items-center justify-center px-7 py-3.5 bg-blue-600 text-white font-bold rounded-full shadow-lg shadow-blue-600/30 hover:bg-blue-700 hover:shadow-blue-600/50 hover:-translate-y-0.5 transition-all duration-300">
-                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                                    Download CV
+                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                                    See CV
                                 </a>
                             @endif
                             <a href="#contact"
@@ -99,12 +99,14 @@
                                 </div>
                                 
                                 <!-- Floater: Online Status Tag -->
-                                <div class="absolute -bottom-4 -left-4 bg-white/95 border border-slate-100 px-4 py-2.5 rounded-2xl shadow-xl flex items-center gap-3 hover:scale-105 transition-transform">
-                                    <div class="w-3.5 h-3.5 rounded-full bg-emerald-500 animate-pulse relative">
-                                        <div class="absolute inset-0 bg-emerald-400 rounded-full animate-ping opacity-75"></div>
+                                @if($user && $user->available_for_work)
+                                    <div class="absolute -bottom-4 -left-4 bg-white/95 border border-slate-100 px-4 py-2.5 rounded-2xl shadow-xl flex items-center gap-3 hover:scale-105 transition-transform">
+                                        <div class="w-3.5 h-3.5 rounded-full bg-emerald-500 animate-pulse relative">
+                                            <div class="absolute inset-0 bg-emerald-400 rounded-full animate-ping opacity-75"></div>
+                                        </div>
+                                        <span class="text-xs font-bold text-slate-800">Available for Work</span>
                                     </div>
-                                    <span class="text-xs font-bold text-slate-800">Available for Work</span>
-                                </div>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -314,61 +316,134 @@
                     <div class="w-16 h-1 bg-blue-600 mx-auto mt-4 rounded-full"></div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <!-- Cert 1 -->
-                    <div @click="lightboxOpen = true; lightboxImage = '{{ asset('storage/images/laravel_cert.png') }}'; lightboxTitle = 'Laravel Certified Developer'; lightboxIssuer = 'Laravel Organization'" 
-                         class="cursor-pointer bg-white rounded-3xl p-8 border border-slate-150 shadow-md hover:-translate-y-2 hover:shadow-xl hover:border-blue-200/50 transition-all duration-300 group flex flex-col justify-between">
-                        <div>
-                            <!-- Icon -->
-                            <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-blue-600 group-hover:text-white transition duration-300 shadow-inner">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>
-                            </div>
-                            <h4 class="text-xl font-bold text-slate-800 mb-2 group-hover:text-blue-600 transition-colors">Laravel Certified Developer</h4>
-                            <p class="text-sm font-semibold text-blue-600 mb-3">Laravel Organization</p>
-                            <p class="text-slate-500 text-xs leading-relaxed mb-6">Demonstrates verified knowledge of advanced application architecture, database configurations, routing, security, and Eloquent design patterns.</p>
-                        </div>
-                        <div class="flex items-center justify-between border-t border-slate-100 pt-4">
-                            <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wide">Click to view certificate</span>
-                            <span class="text-xs font-semibold px-2.5 py-1 bg-slate-100 text-slate-600 rounded">2024</span>
-                        </div>
+                @if($certifications->isEmpty())
+                    <div class="text-center py-12 bg-slate-50/50 border border-slate-200 rounded-3xl max-w-xl mx-auto shadow-inner">
+                        <svg class="w-12 h-12 text-slate-350 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+                        <p class="text-slate-500 font-medium text-sm">No certifications added yet.</p>
                     </div>
+                @elseif($certifications->count() <= 3)
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        @foreach($certifications as $cert)
+                            @php
+                                $lowerName = strtolower($cert->name);
+                                $isLaravel = str_contains($lowerName, 'laravel');
+                                $isCloud = str_contains($lowerName, 'cloud') || str_contains($lowerName, 'google') || str_contains($lowerName, 'aws');
+                                $isWeb = str_contains($lowerName, 'front-end') || str_contains($lowerName, 'web') || str_contains($lowerName, 'react') || str_contains($lowerName, 'meta');
+                            @endphp
+                            <div @click="lightboxOpen = true; lightboxImage = '{{ $cert->preview_image }}'; lightboxTitle = '{{ $cert->name }}'; lightboxIssuer = '{{ $cert->issuer }}'" 
+                                 class="cursor-pointer bg-white rounded-3xl p-8 border border-slate-150 shadow-md hover:-translate-y-2 hover:shadow-xl hover:border-blue-200/50 transition-all duration-300 group flex flex-col justify-between">
+                                <div>
+                                    <!-- Icon -->
+                                    <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-blue-600 group-hover:text-white transition duration-300 shadow-inner">
+                                        @if($isLaravel)
+                                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 00.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138z"></path></svg>
+                                        @elseif($isCloud)
+                                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                                        @elseif($isWeb)
+                                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                                        @else
+                                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222 4 2.222V20"></path></svg>
+                                        @endif
+                                    </div>
+                                    <h4 class="text-xl font-bold text-slate-800 mb-2 group-hover:text-blue-600 transition-colors">{{ $cert->name }}</h4>
+                                    <p class="text-sm font-semibold text-blue-600 mb-3">{{ $cert->issuer }}</p>
+                                    <p class="text-slate-500 text-xs leading-relaxed mb-6">{{ $cert->description }}</p>
+                                </div>
+                                <div class="flex items-center justify-between border-t border-slate-100 pt-4">
+                                    <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wide">Click to view certificate</span>
+                                    <span class="text-xs font-semibold px-2.5 py-1 bg-slate-100 text-slate-600 rounded">{{ $cert->year }}</span>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                @else
+                    <!-- Slider for > 3 Certifications -->
+                    <div x-data="{ 
+                        activeSlide: 0,
+                        totalSlides: {{ $certifications->count() }},
+                        visibleSlides: 3,
+                        updateVisible() {
+                            this.visibleSlides = window.innerWidth >= 768 ? 3 : 1;
+                        },
+                        next() {
+                            const maxIdx = this.totalSlides - this.visibleSlides;
+                            this.activeSlide = this.activeSlide < maxIdx ? this.activeSlide + 1 : 0;
+                        },
+                        prev() {
+                            const maxIdx = this.totalSlides - this.visibleSlides;
+                            this.activeSlide = this.activeSlide > 0 ? this.activeSlide - 1 : maxIdx;
+                        }
+                    }" 
+                    x-init="updateVisible(); window.addEventListener('resize', () => updateVisible())"
+                    class="relative max-w-6xl mx-auto">
+                        
+                        <!-- Slider Window -->
+                        <div class="overflow-hidden -mx-4 px-4 py-4">
+                            <div class="flex transition-transform duration-500 ease-out" 
+                                 :style="`transform: translateX(-${activeSlide * (100 / visibleSlides)}%)`">
+                                
+                                @foreach ($certifications as $cert)
+                                    @php
+                                        $lowerName = strtolower($cert->name);
+                                        $isLaravel = str_contains($lowerName, 'laravel');
+                                        $isCloud = str_contains($lowerName, 'cloud') || str_contains($lowerName, 'google') || str_contains($lowerName, 'aws');
+                                        $isWeb = str_contains($lowerName, 'front-end') || str_contains($lowerName, 'web') || str_contains($lowerName, 'react') || str_contains($lowerName, 'meta');
+                                    @endphp
+                                    <div class="flex-shrink-0 w-full md:w-1/3 px-4 flex">
+                                        <div @click="lightboxOpen = true; lightboxImage = '{{ $cert->preview_image }}'; lightboxTitle = '{{ $cert->name }}'; lightboxIssuer = '{{ $cert->issuer }}'" 
+                                             class="cursor-pointer bg-white rounded-3xl p-8 border border-slate-150 shadow-md hover:-translate-y-2 hover:shadow-xl hover:border-blue-200/50 transition-all duration-300 group flex flex-col justify-between w-full">
+                                            <div>
+                                                <!-- Icon -->
+                                                <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-blue-600 group-hover:text-white transition duration-300 shadow-inner">
+                                                    @if($isLaravel)
+                                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 00.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138z"></path></svg>
+                                                    @elseif($isCloud)
+                                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                                                    @elseif($isWeb)
+                                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                                                    @else
+                                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222 4 2.222V20"></path></svg>
+                                                    @endif
+                                                </div>
+                                                <h4 class="text-xl font-bold text-slate-800 mb-2 group-hover:text-blue-600 transition-colors">{{ $cert->name }}</h4>
+                                                <p class="text-sm font-semibold text-blue-600 mb-3">{{ $cert->issuer }}</p>
+                                                <p class="text-slate-500 text-xs leading-relaxed mb-6">{{ $cert->description }}</p>
+                                            </div>
+                                            <div class="flex items-center justify-between border-t border-slate-100 pt-4">
+                                                <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wide">Click to view certificate</span>
+                                                <span class="text-xs font-semibold px-2.5 py-1 bg-slate-100 text-slate-600 rounded">{{ $cert->year }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
 
-                    <!-- Cert 2 -->
-                    <div @click="lightboxOpen = true; lightboxImage = '{{ asset('storage/images/gcp_cert.png') }}'; lightboxTitle = 'Associate Cloud Engineer'; lightboxIssuer = 'Google Cloud'" 
-                         class="cursor-pointer bg-white rounded-3xl p-8 border border-slate-150 shadow-md hover:-translate-y-2 hover:shadow-xl hover:border-blue-200/50 transition-all duration-300 group flex flex-col justify-between">
-                        <div>
-                            <!-- Icon -->
-                            <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-blue-600 group-hover:text-white transition duration-300 shadow-inner">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                        <!-- Slider Navigation Controllers -->
+                        <div class="flex justify-between items-center mt-8 px-4">
+                            <!-- Navigation dots -->
+                            <div class="flex gap-2.5">
+                                <template x-for="(cert, index) in Array.from({length: totalSlides - visibleSlides + 1})">
+                                    <button @click="activeSlide = index" 
+                                            class="h-2.5 rounded-full transition-all duration-300 focus:outline-none"
+                                            :class="activeSlide === index ? 'w-8 bg-blue-600' : 'w-2.5 bg-slate-300/80 hover:bg-slate-400'"></button>
+                                </template>
                             </div>
-                            <h4 class="text-xl font-bold text-slate-800 mb-2 group-hover:text-blue-600 transition-colors">Associate Cloud Engineer</h4>
-                            <p class="text-sm font-semibold text-blue-600 mb-3">Google Cloud</p>
-                            <p class="text-slate-500 text-xs leading-relaxed mb-6">Verified skills in deploying applications, monitoring operations, managing enterprise cloud infrastructure, and maintaining security layers in Google Cloud Platform.</p>
-                        </div>
-                        <div class="flex items-center justify-between border-t border-slate-100 pt-4">
-                            <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wide">Click to view certificate</span>
-                            <span class="text-xs font-semibold px-2.5 py-1 bg-slate-100 text-slate-600 rounded">2023</span>
+                            
+                            <!-- Arrows -->
+                            <div class="flex gap-3">
+                                <button @click="prev()" 
+                                        class="p-3 bg-white border border-slate-200/80 text-slate-600 rounded-full hover:text-blue-600 hover:border-blue-200 hover:shadow-md transition focus:outline-none shadow-sm">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path></svg>
+                                </button>
+                                <button @click="next()" 
+                                        class="p-3 bg-white border border-slate-200/80 text-slate-600 rounded-full hover:text-blue-600 hover:border-blue-200 hover:shadow-md transition focus:outline-none shadow-sm">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
+                                </button>
+                            </div>
                         </div>
                     </div>
-
-                    <!-- Cert 3 -->
-                    <div @click="lightboxOpen = true; lightboxImage = '{{ asset('storage/images/meta_cert.png') }}'; lightboxTitle = 'Meta Front-End Developer'; lightboxIssuer = 'Meta / Coursera'" 
-                         class="cursor-pointer bg-white rounded-3xl p-8 border border-slate-150 shadow-md hover:-translate-y-2 hover:shadow-xl hover:border-blue-200/50 transition-all duration-300 group flex flex-col justify-between">
-                        <div>
-                            <!-- Icon -->
-                            <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-blue-600 group-hover:text-white transition duration-300 shadow-inner">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
-                            </div>
-                            <h4 class="text-xl font-bold text-slate-800 mb-2 group-hover:text-blue-600 transition-colors">Meta Front-End Developer</h4>
-                            <p class="text-sm font-semibold text-blue-600 mb-3">Meta / Coursera</p>
-                            <p class="text-slate-500 text-xs leading-relaxed mb-6">Expertise in developing highly responsive interfaces, utilizing React library elements, component lifecycles, global states, and API consumption standards.</p>
-                        </div>
-                        <div class="flex items-center justify-between border-t border-slate-100 pt-4">
-                            <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wide">Click to view certificate</span>
-                            <span class="text-xs font-semibold px-2.5 py-1 bg-slate-100 text-slate-600 rounded">2022</span>
-                        </div>
-                    </div>
-                </div>
+                @endif
             </div>
 
             <!-- Lightbox Modal container -->

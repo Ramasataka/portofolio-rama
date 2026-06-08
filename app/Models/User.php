@@ -28,7 +28,8 @@ class User extends Authenticatable
         'description',
         'image',
         'role',
-        'cv'
+        'cv',
+        'available_for_work'
     ];
 
     /**
@@ -51,6 +52,7 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'available_for_work' => 'boolean',
         ];
     }
 

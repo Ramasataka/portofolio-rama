@@ -16,7 +16,7 @@
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-primary-50">
-           @if((request()->is('dashboard*') || request()->is('profile*') || request()->is('projects*') || request()->is('experiences*')) && auth()->check())
+           @if((request()->is('dashboard*') || request()->is('profile*') || request()->is('projects*') || request()->is('experiences*') || request()->is('certifications*')) && auth()->check())
                 @include('layouts.navigation')
             @else
                 @include('layouts.navigation-portfolio')

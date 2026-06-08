@@ -80,6 +80,17 @@
                                        disabled>
                             </div>
 
+                            <!-- Available for Work Status -->
+                            <div class="flex items-center md:pt-6">
+                                <label class="inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" name="available_for_work" id="available_for_work" value="1"
+                                           class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                                           {{ ($user->available_for_work ?? true) ? 'checked' : '' }}
+                                           disabled>
+                                    <span class="ml-2 text-sm font-semibold text-gray-700">Available for Work</span>
+                                </label>
+                            </div>
+
                             <!-- Description -->
                             <div class="md:col-span-2">
                                 <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
