@@ -14,7 +14,7 @@ class HomeController extends Controller
         $user = User::first();
         $projects = Project::with('link_projects', 'tech_stacks', 'images')->get();
         $tech_stacks = $user->tech_stacks;
-        $experiences = Experience::all();
+        $experiences = Experience::orderBy('start_date', 'desc')->get();
 
         return view('home', compact('user', 'projects', 'tech_stacks', 'experiences'));
     }

@@ -11,6 +11,17 @@
         </div>
     @endif
 
+    @if($errors->any())
+        <div class="mb-4 px-4 py-3 bg-red-50 border border-red-200 text-red-700 rounded-lg shadow-sm relative max-w-7xl mx-auto mt-4" role="alert">
+            <strong class="font-bold block text-sm">Please correct the following errors:</strong>
+            <ul class="mt-2 list-disc list-inside text-xs text-red-600">
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <!-- Add New Experience Form -->

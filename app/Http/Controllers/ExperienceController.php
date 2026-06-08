@@ -13,7 +13,7 @@ class ExperienceController extends Controller
      */
     public function index()
     {
-        $experiences = Experience::orderBy('created_at', 'desc')->get();
+        $experiences = Experience::orderBy('start_date', 'desc')->get();
         return view('profile.experience', compact('experiences'));
     }
 
