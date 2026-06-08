@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use App\Models\User;
+use App\Models\Experience;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -13,7 +14,8 @@ class HomeController extends Controller
         $user = User::first();
         $projects = Project::with('link_projects', 'tech_stacks', 'images')->get();
         $tech_stacks = $user->tech_stacks;
+        $experiences = Experience::all();
 
-        return view('home', compact('user', 'projects', 'tech_stacks'));
+        return view('home', compact('user', 'projects', 'tech_stacks', 'experiences'));
     }
 }

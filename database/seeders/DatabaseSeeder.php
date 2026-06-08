@@ -27,5 +27,7 @@ class DatabaseSeeder extends Seeder
             'role' => 'Back-end Web Developer',
             'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.',
         ]);
+
+        $this->call(ExperienceSeeder::class);
     }
 }

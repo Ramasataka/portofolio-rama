@@ -3,7 +3,7 @@
         [x-cloak] { display: none !important; }
     </style>
 
-    <div x-data="{ certModalOpen: false, certImage: '', certTitle: '', certIssuer: '' }">
+    <div x-data="{ lightboxOpen: false, lightboxImage: '', lightboxTitle: '', lightboxIssuer: '' }">
         @if(session('success'))
             <div 
                 x-data="{ show: true }" 
@@ -240,117 +240,64 @@
                 </div>
 
                 <!-- Vertical Timeline -->
-                <div class="relative border-l-2 border-blue-100 ml-4 md:ml-32 space-y-12">
-                    <!-- Timeline item 1 -->
-                    <div class="relative pl-8 md:pl-12 group">
-                        <!-- Icon node -->
-                        <div class="absolute -left-[11px] top-1.5 w-5 h-5 rounded-full border-4 border-white bg-blue-600 shadow-md group-hover:scale-125 transition-transform duration-300">
-                            <div class="absolute inset-0 bg-blue-400 rounded-full animate-ping opacity-25"></div>
-                        </div>
-                        
-                        <!-- Date Left Indicator (desktop-only) -->
-                        <div class="hidden md:block absolute -left-36 top-1 text-right w-28">
-                            <span class="text-sm font-bold text-blue-600">2024</span>
-                            <p class="text-[11px] font-semibold text-slate-400 uppercase tracking-widest">Committee</p>
-                        </div>
-                        
-                        <!-- Card Content -->
-                        <div class="p-6 md:p-8 bg-slate-50/50 border border-slate-100 hover:border-blue-100 hover:bg-white rounded-2xl hover:shadow-xl hover:shadow-blue-900/5 transition duration-300">
-                            <!-- Date badge for mobile -->
-                            <span class="inline-block md:hidden px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-xs font-bold mb-3">2024</span>
-                            
-                            <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
-                                <div>
-                                    <h4 class="text-xl font-bold text-slate-800 group-hover:text-blue-600 transition-colors">Chairman of Campus Hackathon</h4>
-                                    <p class="text-sm font-medium text-slate-500">Informatics Student Association</p>
-                                </div>
-                                <span class="px-3 py-1 bg-blue-100/50 border border-blue-200 text-blue-700 text-xs font-bold rounded-lg">Leadership</span>
-                            </div>
-                            
-                            <p class="text-slate-600 text-sm leading-relaxed mb-4">
-                                Managed a team of 30+ students to organize a national-level programming hackathon. Handled event budgets, logistics, sponsor relationships with tech companies, and technical platforms.
-                            </p>
-                            
-                            <div class="flex flex-wrap gap-1.5">
-                                <span class="px-2 py-0.5 bg-slate-100 text-slate-600 rounded text-[11px] font-semibold">Leadership</span>
-                                <span class="px-2 py-0.5 bg-slate-100 text-slate-600 rounded text-[11px] font-semibold">Event Planning</span>
-                                <span class="px-2 py-0.5 bg-slate-100 text-slate-600 rounded text-[11px] font-semibold">Public Speaking</span>
-                            </div>
-                        </div>
+                @if($experiences->isEmpty())
+                    <div class="text-center py-12 bg-slate-50/50 border border-slate-200 rounded-3xl max-w-xl mx-auto shadow-inner">
+                        <svg class="w-12 h-12 text-slate-350 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+                        <p class="text-slate-500 font-medium text-sm">No experience items added yet.</p>
                     </div>
+                @else
+                    <div class="relative border-l-2 border-blue-100 ml-4 md:ml-32 space-y-12">
+                        @foreach($experiences as $exp)
+                            <!-- Timeline item -->
+                            <div class="relative pl-8 md:pl-12 group">
+                                <!-- Icon node -->
+                                <div class="absolute -left-[11px] top-1.5 w-5 h-5 rounded-full border-4 border-white bg-blue-600 shadow-md group-hover:scale-125 transition-transform duration-300">
+                                    @if($loop->first)
+                                        <div class="absolute inset-0 bg-blue-400 rounded-full animate-ping opacity-25"></div>
+                                    @endif
+                                </div>
+                                
+                                <!-- Date Left Indicator (desktop-only) -->
+                                <div class="hidden md:block absolute -left-36 top-1 text-right w-28">
+                                    <span class="text-sm font-bold text-blue-600">{{ $exp->period }}</span>
+                                    <p class="text-[11px] font-semibold text-slate-400 uppercase tracking-widest">{{ $exp->type }}</p>
+                                </div>
+                                
+                                <!-- Card Content -->
+                                <div @click="lightboxOpen = true; lightboxImage = '{{ $exp->preview_image }}'; lightboxTitle = '{{ $exp->title }}'; lightboxIssuer = '{{ $exp->organization }}'"
+                                     class="cursor-pointer p-6 md:p-8 bg-slate-50/50 border border-slate-100 hover:border-blue-100 hover:bg-white rounded-2xl hover:shadow-xl hover:shadow-blue-900/5 transition duration-300">
+                                    <!-- Date badge for mobile -->
+                                    <span class="inline-block md:hidden px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-xs font-bold mb-3">{{ $exp->period }}</span>
+                                    
+                                    <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+                                        <div>
+                                            <h4 class="text-xl font-bold text-slate-800 group-hover:text-blue-600 transition-colors">{{ $exp->title }}</h4>
+                                            <p class="text-sm font-medium text-slate-500">{{ $exp->organization }}</p>
+                                        </div>
+                                        <span class="px-3 py-1 bg-blue-100/50 border border-blue-200 text-blue-700 text-xs font-bold rounded-lg">{{ $exp->category }}</span>
+                                    </div>
+                                    
+                                    <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                                        {{ $exp->description }}
+                                    </p>
+                                    
+                                    @if($exp->skills)
+                                        <div class="flex flex-wrap gap-1.5 mb-4">
+                                            @foreach(explode(',', $exp->skills) as $skill)
+                                                <span class="px-2 py-0.5 bg-slate-100 text-slate-600 rounded text-[11px] font-semibold">{{ trim($skill) }}</span>
+                                            @endforeach
+                                        </div>
+                                    @endif
 
-                    <!-- Timeline item 2 -->
-                    <div class="relative pl-8 md:pl-12 group">
-                        <!-- Icon node -->
-                        <div class="absolute -left-[11px] top-1.5 w-5 h-5 rounded-full border-4 border-white bg-blue-600 shadow-md group-hover:scale-125 transition-transform duration-300"></div>
-                        
-                        <!-- Date Left Indicator (desktop-only) -->
-                        <div class="hidden md:block absolute -left-36 top-1 text-right w-28">
-                            <span class="text-sm font-bold text-slate-500">2023 - 2024</span>
-                            <p class="text-[11px] font-semibold text-slate-400 uppercase tracking-widest">Member</p>
-                        </div>
-                        
-                        <!-- Card Content -->
-                        <div class="p-6 md:p-8 bg-slate-50/50 border border-slate-100 hover:border-blue-100 hover:bg-white rounded-2xl hover:shadow-xl hover:shadow-blue-900/5 transition duration-300">
-                            <!-- Date badge for mobile -->
-                            <span class="inline-block md:hidden px-3 py-1 bg-slate-100 text-slate-600 rounded-full text-xs font-bold mb-3">2023 - 2024</span>
-                            
-                            <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
-                                <div>
-                                    <h4 class="text-xl font-bold text-slate-800 group-hover:text-blue-600 transition-colors">Web Developer</h4>
-                                    <p class="text-sm font-medium text-slate-500">Campus Student Union (BEM)</p>
+                                    <div class="border-t border-slate-100 pt-3 flex items-center justify-between text-xs text-blue-600 font-semibold group-hover:translate-x-1 transition-transform">
+                                        <span>Click to see event photo</span>
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                                    </div>
                                 </div>
-                                <span class="px-3 py-1 bg-slate-100 text-slate-600 text-xs font-semibold rounded-lg">Technical</span>
                             </div>
-                            
-                            <p class="text-slate-600 text-sm leading-relaxed mb-4">
-                                Developed and updated the official student union portal website. Added features for registering student events, publication news boards, and sharing orientation calendars.
-                            </p>
-                            
-                            <div class="flex flex-wrap gap-1.5">
-                                <span class="px-2 py-0.5 bg-slate-100 text-slate-600 rounded text-[11px] font-semibold">Laravel</span>
-                                <span class="px-2 py-0.5 bg-slate-100 text-slate-600 rounded text-[11px] font-semibold">Tailwind CSS</span>
-                                <span class="px-2 py-0.5 bg-slate-100 text-slate-600 rounded text-[11px] font-semibold">Git</span>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
-
-                    <!-- Timeline item 3 -->
-                    <div class="relative pl-8 md:pl-12 group">
-                        <!-- Icon node -->
-                        <div class="absolute -left-[11px] top-1.5 w-5 h-5 rounded-full border-4 border-white bg-blue-600 shadow-md group-hover:scale-125 transition-transform duration-300"></div>
-                        
-                        <!-- Date Left Indicator (desktop-only) -->
-                        <div class="hidden md:block absolute -left-36 top-1 text-right w-28">
-                            <span class="text-sm font-bold text-slate-500">2022</span>
-                            <p class="text-[11px] font-semibold text-slate-400 uppercase tracking-widest">Committee</p>
-                        </div>
-                        
-                        <!-- Card Content -->
-                        <div class="p-6 md:p-8 bg-slate-50/50 border border-slate-100 hover:border-blue-100 hover:bg-white rounded-2xl hover:shadow-xl hover:shadow-blue-900/5 transition duration-300">
-                            <!-- Date badge for mobile -->
-                            <span class="inline-block md:hidden px-3 py-1 bg-slate-100 text-slate-600 rounded-full text-xs font-bold mb-3">2022</span>
-                            
-                            <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
-                                <div>
-                                    <h4 class="text-xl font-bold text-slate-800 group-hover:text-blue-600 transition-colors">Staff of Logistics & Equipment</h4>
-                                    <p class="text-sm font-medium text-slate-500">Campus Orientation Week (Ospek)</p>
-                                </div>
-                                <span class="px-3 py-1 bg-slate-100 text-slate-600 text-xs font-semibold rounded-lg">Operations</span>
-                            </div>
-                            
-                            <p class="text-slate-600 text-sm leading-relaxed mb-4">
-                                Maintained and set up technical hardware, sound routing, and staging configurations fororienting 1000+ newly registered university students.
-                            </p>
-                            
-                            <div class="flex flex-wrap gap-1.5">
-                                <span class="px-2 py-0.5 bg-slate-100 text-slate-600 rounded text-[11px] font-semibold">Logistics</span>
-                                <span class="px-2 py-0.5 bg-slate-100 text-slate-600 rounded text-[11px] font-semibold">Coordination</span>
-                                <span class="px-2 py-0.5 bg-slate-100 text-slate-600 rounded text-[11px] font-semibold">Problem Solving</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endif
             </div>
         </section>
 
@@ -369,7 +316,7 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <!-- Cert 1 -->
-                    <div @click="certModalOpen = true; certImage = '{{ asset('storage/images/laravel_cert.png') }}'; certTitle = 'Laravel Certified Developer'; certIssuer = 'Laravel Organization'" 
+                    <div @click="lightboxOpen = true; lightboxImage = '{{ asset('storage/images/laravel_cert.png') }}'; lightboxTitle = 'Laravel Certified Developer'; lightboxIssuer = 'Laravel Organization'" 
                          class="cursor-pointer bg-white rounded-3xl p-8 border border-slate-150 shadow-md hover:-translate-y-2 hover:shadow-xl hover:border-blue-200/50 transition-all duration-300 group flex flex-col justify-between">
                         <div>
                             <!-- Icon -->
@@ -387,7 +334,7 @@
                     </div>
 
                     <!-- Cert 2 -->
-                    <div @click="certModalOpen = true; certImage = '{{ asset('storage/images/gcp_cert.png') }}'; certTitle = 'Associate Cloud Engineer'; certIssuer = 'Google Cloud'" 
+                    <div @click="lightboxOpen = true; lightboxImage = '{{ asset('storage/images/gcp_cert.png') }}'; lightboxTitle = 'Associate Cloud Engineer'; lightboxIssuer = 'Google Cloud'" 
                          class="cursor-pointer bg-white rounded-3xl p-8 border border-slate-150 shadow-md hover:-translate-y-2 hover:shadow-xl hover:border-blue-200/50 transition-all duration-300 group flex flex-col justify-between">
                         <div>
                             <!-- Icon -->
@@ -405,7 +352,7 @@
                     </div>
 
                     <!-- Cert 3 -->
-                    <div @click="certModalOpen = true; certImage = '{{ asset('storage/images/meta_cert.png') }}'; certTitle = 'Meta Front-End Developer'; certIssuer = 'Meta / Coursera'" 
+                    <div @click="lightboxOpen = true; lightboxImage = '{{ asset('storage/images/meta_cert.png') }}'; lightboxTitle = 'Meta Front-End Developer'; lightboxIssuer = 'Meta / Coursera'" 
                          class="cursor-pointer bg-white rounded-3xl p-8 border border-slate-150 shadow-md hover:-translate-y-2 hover:shadow-xl hover:border-blue-200/50 transition-all duration-300 group flex flex-col justify-between">
                         <div>
                             <!-- Icon -->
@@ -425,7 +372,7 @@
             </div>
 
             <!-- Lightbox Modal container -->
-            <div x-show="certModalOpen" 
+            <div x-show="lightboxOpen" 
                  x-transition:enter="transition ease-out duration-300"
                  x-transition:enter-start="opacity-0"
                  x-transition:enter-end="opacity-100"
@@ -434,11 +381,11 @@
                  x-transition:leave-end="opacity-0"
                  class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
                  x-cloak
-                 @click="certModalOpen = false">
+                 @click="lightboxOpen = false">
                  
                  <!-- Modal Content -->
                  <div class="bg-white rounded-3xl max-w-3xl w-full overflow-hidden shadow-2xl border border-white/20"
-                      x-show="certModalOpen"
+                      x-show="lightboxOpen"
                       x-transition:enter="transition ease-out duration-300"
                       x-transition:enter-start="opacity-0 scale-95"
                       x-transition:enter-end="opacity-100 scale-100"
@@ -450,19 +397,19 @@
                       <div class="p-6 md:p-8 relative">
                           <div class="flex justify-between items-center mb-6">
                               <div>
-                                  <h3 class="text-2xl font-extrabold text-slate-900" x-text="certTitle">Certificate Title</h3>
-                                  <p class="text-sm font-semibold text-blue-600" x-text="certIssuer">Issuing Organization</p>
+                                  <h3 class="text-2xl font-extrabold text-slate-900" x-text="lightboxTitle">Certificate Title</h3>
+                                  <p class="text-sm font-semibold text-blue-600" x-text="lightboxIssuer">Issuing Organization</p>
                               </div>
-                              <button @click="certModalOpen = false" class="text-slate-400 hover:text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-full p-2 transition focus:outline-none">
+                              <button @click="lightboxOpen = false" class="text-slate-400 hover:text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-full p-2 transition focus:outline-none">
                                   <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12"></path>
                                   </svg>
                               </button>
                           </div>
                           
-                          <!-- Certificate Image -->
+                          <!-- Certificate/Event Image -->
                           <div class="rounded-2xl overflow-hidden border border-slate-200/60 bg-slate-50 flex items-center justify-center shadow-inner">
-                              <img :src="certImage" alt="Certificate Image" class="w-full h-auto max-h-[60vh] object-contain">
+                              <img :src="lightboxImage" alt="Preview Image" class="w-full h-auto max-h-[60vh] object-contain">
                           </div>
                       </div>
                  </div>
