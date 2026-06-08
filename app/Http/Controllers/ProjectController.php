@@ -30,22 +30,9 @@ class ProjectController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreProjectRequest $request)
     {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif',
-            'description_thumbnail' => 'required|string',
-            'key_feature' => 'required|string',
-            'link_types' => 'required|array',
-            'link_types.*' => 'required|string',
-            'links' => 'required|array',
-            'links.*' => 'required|url',
-            'tech_stacks' => 'required|array',
-            'tech_stacks.*' => 'required|string',
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
-        ]);
+        $validated = $request->validated();
 
         if ($request->hasFile('thumbnail')) {
             $path_th =$request->file('thumbnail')->store('thumbnail', 'public');

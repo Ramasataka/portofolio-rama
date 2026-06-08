@@ -3,18 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Notifications\ContactMessageNotification;
+use App\Http\Requests\SendContactRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
 
 class ContactController extends Controller
 {
-     public function send(Request $request)
+     public function send(SendContactRequest $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:100',
-            'email' => 'required|email',
-            'message' => 'required|string|max:1000',
-        ]);
+        $validated = $request->validated();
 
         // Kirim notifikasi ke email kamu
         Notification::route('mail', 'ramaputrawibawa24@gmail.com')

@@ -4,8 +4,10 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreCertificationRequest extends FormRequest
+class AddSkillRequest extends FormRequest
 {
+    protected $errorBag = 'addSkill';
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -23,10 +25,6 @@ class StoreCertificationRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'issuer' => 'required|string|max:255',
-            'year' => 'required|string|max:50',
-            'description' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120',
         ];
     }
 }

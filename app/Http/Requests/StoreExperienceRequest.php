@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreProjectRequest extends FormRequest
+class StoreExperienceRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,17 +23,14 @@ class StoreProjectRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
+            'organization' => 'required|string|max:255',
+            'start_date' => 'required|date',
+            'end_date' => 'nullable|date|after_or_equal:start_date',
+            'type' => 'required|string|max:255',
+            'category' => 'required|string|max:255',
             'description' => 'required|string',
-            'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif|max:5120',
-            'description_thumbnail' => 'required|string',
-            'key_feature' => 'required|string',
-            'link_types' => 'required|array',
-            'link_types.*' => 'required|string',
-            'links' => 'required|array',
-            'links.*' => 'required|url',
-            'tech_stacks' => 'required|array',
-            'tech_stacks.*' => 'required|string',
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:5120'
+            'skills' => 'nullable|string|max:500',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120',
         ];
     }
 }

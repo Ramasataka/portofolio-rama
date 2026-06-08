@@ -35,74 +35,122 @@
                             <!-- Name -->
                             <div>
                                 <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
-                                <input type="text" name="name" id="name" value="{{ $user->name ?? '' }}" 
-                                       class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500" 
+                                <input type="text" name="name" id="name" value="{{ old('name', $user->name ?? '') }}" 
+                                       class="mt-1 block w-full rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 @error('name', 'updateProfile') border-red-300 focus:border-red-500 focus:ring-red-500/20 @else border-gray-300 @enderror" 
                                        disabled>
+                                @error('name', 'updateProfile')
+                                    <p class="text-sm text-red-500 mt-1.5 flex items-center font-medium">
+                                        <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                                        {{ $message }}
+                                    </p>
+                                @enderror
                             </div>
 
                             <!-- Email Contact -->
                             <div>
                                 <label for="email_contact" class="block text-sm font-medium text-gray-700">Email Contact</label>
-                                <input type="email" name="email_contact" id="email_contact" value="{{ $user->email_contanct ?? '' }}" 
-                                       class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500" 
+                                <input type="email" name="email_contact" id="email_contact" value="{{ old('email_contact', $user->email_contanct ?? '') }}" 
+                                       class="mt-1 block w-full rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 @error('email_contact', 'updateProfile') border-red-300 focus:border-red-500 focus:ring-red-500/20 @else border-gray-300 @enderror" 
                                        disabled>
+                                @error('email_contact', 'updateProfile')
+                                    <p class="text-sm text-red-500 mt-1.5 flex items-center font-medium">
+                                        <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                                        {{ $message }}
+                                    </p>
+                                @enderror
                             </div>
 
                             <!-- Phone Contact -->
                             <div>
                                 <label for="phone_contact" class="block text-sm font-medium text-gray-700">Phone Contact</label>
-                                <input type="text" name="phone_contact" id="phone_contact" value="{{ $user->phone_contanct ?? '' }}" 
-                                       class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500" 
+                                <input type="text" name="phone_contact" id="phone_contact" value="{{ old('phone_contact', $user->phone_contanct ?? '') }}" 
+                                       class="mt-1 block w-full rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 @error('phone_contact', 'updateProfile') border-red-300 focus:border-red-500 focus:ring-red-500/20 @else border-gray-300 @enderror" 
                                        disabled>
+                                @error('phone_contact', 'updateProfile')
+                                    <p class="text-sm text-red-500 mt-1.5 flex items-center font-medium">
+                                        <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                                        {{ $message }}
+                                    </p>
+                                @enderror
                             </div>
 
                             <!-- Role -->
                             <div>
                                 <label for="role" class="block text-sm font-medium text-gray-700">Role</label>
-                                <input type="text" name="role" id="role" value="{{ $user->role ?? '' }}" 
-                                       class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500" 
+                                <input type="text" name="role" id="role" value="{{ old('role', $user->role ?? '') }}" 
+                                       class="mt-1 block w-full rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 @error('role', 'updateProfile') border-red-300 focus:border-red-500 focus:ring-red-500/20 @else border-gray-300 @enderror" 
                                        disabled>
+                                @error('role', 'updateProfile')
+                                    <p class="text-sm text-red-500 mt-1.5 flex items-center font-medium">
+                                        <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                                        {{ $message }}
+                                    </p>
+                                @enderror
                             </div>
 
                             <!-- GitHub Link -->
                             <div>
                                 <label for="github_link" class="block text-sm font-medium text-gray-700">GitHub Link</label>
-                                <input type="url" name="github_link" id="github_link" value="{{ $user->github_link ?? '' }}" 
-                                       class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500" 
+                                <input type="url" name="github_link" id="github_link" value="{{ old('github_link', $user->github_link ?? '') }}" 
+                                       class="mt-1 block w-full rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 @error('github_link', 'updateProfile') border-red-300 focus:border-red-500 focus:ring-red-500/20 @else border-gray-300 @enderror" 
                                        disabled>
+                                @error('github_link', 'updateProfile')
+                                    <p class="text-sm text-red-500 mt-1.5 flex items-center font-medium">
+                                        <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                                        {{ $message }}
+                                    </p>
+                                @enderror
                             </div>
 
                             <!-- LinkedIn Link -->
                             <div>
                                 <label for="linkedin_link" class="block text-sm font-medium text-gray-700">LinkedIn Link</label>
-                                <input type="url" name="linkedin_link" id="linkedin_link" value="{{ $user->linkedin_link ?? '' }}" 
-                                       class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500" 
+                                <input type="url" name="linkedin_link" id="linkedin_link" value="{{ old('linkedin_link', $user->linkedin_link ?? '') }}" 
+                                       class="mt-1 block w-full rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 @error('linkedin_link', 'updateProfile') border-red-300 focus:border-red-500 focus:ring-red-500/20 @else border-gray-300 @enderror" 
                                        disabled>
+                                @error('linkedin_link', 'updateProfile')
+                                    <p class="text-sm text-red-500 mt-1.5 flex items-center font-medium">
+                                        <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                                        {{ $message }}
+                                    </p>
+                                @enderror
                             </div>
 
                             <!-- Available for Work Status -->
                             <div class="flex items-center md:pt-6">
                                 <label class="inline-flex items-center cursor-pointer">
                                     <input type="checkbox" name="available_for_work" id="available_for_work" value="1"
-                                           class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
-                                           {{ ($user->available_for_work ?? true) ? 'checked' : '' }}
+                                           class="rounded text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 @error('available_for_work', 'updateProfile') border-red-300 @else border-gray-300 @enderror"
+                                           {{ old('available_for_work', $user->available_for_work ?? true) ? 'checked' : '' }}
                                            disabled>
                                     <span class="ml-2 text-sm font-semibold text-gray-700">Available for Work</span>
                                 </label>
+                                @error('available_for_work', 'updateProfile')
+                                    <p class="text-sm text-red-500 ml-4 flex items-center font-medium">
+                                        <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                                        {{ $message }}
+                                    </p>
+                                @enderror
                             </div>
 
                             <!-- Description -->
                             <div class="md:col-span-2">
                                 <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
                                 <textarea name="description" id="description" rows="3" 
-                                          class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500" 
-                                          disabled>{{ $user->description ?? '' }}</textarea>
+                                          class="mt-1 block w-full rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 @error('description', 'updateProfile') border-red-300 focus:border-red-500 focus:ring-red-500/20 @else border-gray-300 @enderror" 
+                                          disabled>{{ old('description', $user->description ?? '') }}</textarea>
+                                @error('description', 'updateProfile')
+                                    <p class="text-sm text-red-500 mt-1.5 flex items-center font-medium">
+                                        <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                                        {{ $message }}
+                                    </p>
+                                @enderror
                             </div>
                         </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
                             <!-- Profile Image -->
                             <div class="md:col-span-2">
-                                <label for="image" class="block text-sm font-medium text-gray-700">Profile Image</label>
+                                <label for="image" class="block text-sm font-medium text-gray-700">Profile Image (JPG/PNG/GIF up to 5MB)</label>
                                 <div class="mt-1 flex items-center">
                                     <img id="preview" 
                                         src="{{ $user->image ? asset('storage/'.$user->image) : asset('images/default-profile.png') }}" 
@@ -115,10 +163,17 @@
                                                 disabled>
                                             Change
                                         </button>
-                                        <p class="text-xs text-gray-500 mt-1">JPG, PNG up to 2MB</p>
+                                        <p class="text-xs text-gray-500 mt-1">JPG, PNG, GIF up to 5MB</p>
+                                        @error('image', 'updateProfile')
+                                            <p class="text-sm text-red-500 mt-1.5 flex items-center font-medium">
+                                                <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                                                {{ $message }}
+                                            </p>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
+                        </div>
 
                         <div class="flex justify-end space-x-4 mt-6 hidden" id="form-actions">
                             <button type="button" id="cancel-btn" class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">
@@ -146,8 +201,8 @@
                         <div class="flex items-center gap-4">
                             <div class="flex-grow">
                                 <label for="new_skill" class="sr-only">New Skill</label>
-                                <input type="text" name="name" id="new_skill" 
-                                       class="block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500" 
+                                <input type="text" name="name" id="new_skill" value="{{ old('name') }}"
+                                       class="block w-full rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 @error('name', 'addSkill') border-red-300 @else border-gray-300 @enderror" 
                                        placeholder="Add new skill" required>
                             </div>
                             <button type="submit" 
@@ -155,6 +210,12 @@
                                 Add Skill
                             </button>
                         </div>
+                        @error('name', 'addSkill')
+                            <p class="text-sm text-red-500 mt-1.5 flex items-center font-medium">
+                                <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                                {{ $message }}
+                            </p>
+                        @enderror
                     </form>
 
                     <!-- Daftar Skill -->
@@ -200,10 +261,16 @@
                         @csrf
 
                         <div>
-                            <label for="cv_file" class="block text-sm font-medium text-gray-700 mb-1">Upload CV (PDF only)</label>
+                            <label for="cv_file" class="block text-sm font-medium text-gray-700 mb-1">Upload CV (PDF up to 5MB)</label>
                             <input type="file" name="cv_file" id="cv_file" accept=".pdf"
-                                class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring focus:border-[#222831]"
+                                class="w-full px-4 py-2 rounded-lg shadow-sm focus:outline-none focus:ring focus:border-[#222831] @error('cv_file', 'uploadCv') border-red-300 @else border-gray-300 @enderror"
                                 required>
+                            @error('cv_file', 'uploadCv')
+                                <p class="text-sm text-red-500 mt-1.5 flex items-center font-medium">
+                                    <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                                    {{ $message }}
+                                </p>
+                            @enderror
                         </div>
 
                         <button type="submit"

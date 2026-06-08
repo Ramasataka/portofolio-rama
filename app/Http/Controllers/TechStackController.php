@@ -3,15 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\UserTechStack;
+use App\Http\Requests\AddSkillRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class TechStackController extends Controller
 {
-    public function addSkill(Request $request) {
-        $request->validate([
-            'name' => 'required|string|max:255'
-        ]);
+    public function addSkill(AddSkillRequest $request) {
+        $validated = $request->validated();
         $user = Auth::user();
 
         UserTechStack::create([

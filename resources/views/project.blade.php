@@ -26,41 +26,85 @@
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
                                     <label for="title" class="block text-sm font-semibold text-slate-700">Title</label>
-                                    <input type="text" name="title" id="title" required
-                                        class="mt-2 block w-full border border-slate-300 rounded-lg shadow-sm focus:border-sky-500 focus:ring focus:ring-sky-500/20 transition-colors">
+                                    <input type="text" name="title" id="title" value="{{ old('title') }}" required
+                                        class="mt-2 block w-full rounded-lg shadow-sm transition-colors @error('title') border-red-300 focus:border-red-500 focus:ring-red-500/20 @else border-slate-300 focus:border-sky-500 focus:ring-sky-500/20 @enderror">
+                                    @error('title')
+                                        <p class="text-sm text-red-500 mt-1.5 flex items-center font-medium">
+                                            <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                                            {{ $message }}
+                                        </p>
+                                    @enderror
                                 </div>
 
                                 <div>
                                     <label for="description_thumbnail" class="block text-sm font-semibold text-slate-700">Small description</label>
                                     <textarea name="description_thumbnail" id="description_thumbnail" rows="3" required
-                                        class="mt-2 block w-full border border-slate-300 rounded-lg shadow-sm focus:border-sky-500 focus:ring focus:ring-sky-500/20 transition-colors"></textarea>
+                                        class="mt-2 block w-full rounded-lg shadow-sm transition-colors @error('description_thumbnail') border-red-300 focus:border-red-500 focus:ring-red-500/20 @else border-slate-300 focus:border-sky-500 focus:ring-sky-500/20 @enderror">{{ old('description_thumbnail') }}</textarea>
+                                    @error('description_thumbnail')
+                                        <p class="text-sm text-red-500 mt-1.5 flex items-center font-medium">
+                                            <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                                            {{ $message }}
+                                        </p>
+                                    @enderror
                                 </div>
 
                                 <div class="md:col-span-2">
                                     <label for="key_feature" class="block text-sm font-semibold text-slate-700">Key Features (comma separated)</label>
                                     <textarea name="key_feature" id="key_feature" rows="2" required
-                                        class="mt-2 block w-full border border-slate-300 rounded-lg shadow-sm focus:border-sky-500 focus:ring focus:ring-sky-500/20 transition-colors"></textarea>
+                                        class="mt-2 block w-full rounded-lg shadow-sm transition-colors @error('key_feature') border-red-300 focus:border-red-500 focus:ring-red-500/20 @else border-slate-300 focus:border-sky-500 focus:ring-sky-500/20 @enderror">{{ old('key_feature') }}</textarea>
+                                    @error('key_feature')
+                                        <p class="text-sm text-red-500 mt-1.5 flex items-center font-medium">
+                                            <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                                            {{ $message }}
+                                        </p>
+                                    @enderror
                                 </div>
 
                                 <div class="md:col-span-2">
                                     <label for="description" class="block text-sm font-semibold text-slate-700">Detailed Description</label>
                                     <textarea name="description" id="description" rows="2" required
-                                        class="mt-2 block w-full border border-slate-300 rounded-lg shadow-sm focus:border-sky-500 focus:ring focus:ring-sky-500/20 transition-colors"></textarea>
+                                        class="mt-2 block w-full rounded-lg shadow-sm transition-colors @error('description') border-red-300 focus:border-red-500 focus:ring-red-500/20 @else border-slate-300 focus:border-sky-500 focus:ring-sky-500/20 @enderror">{{ old('description') }}</textarea>
+                                    @error('description')
+                                        <p class="text-sm text-red-500 mt-1.5 flex items-center font-medium">
+                                            <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                                            {{ $message }}
+                                        </p>
+                                    @enderror
                                 </div>
 
                                 <div class="md:col-span-2">
                                     <label class="block text-sm font-semibold text-slate-700">Tech Stack</label>
                                     <div id="tech-stack-container">
-                                        <div class="flex items-center gap-2 mb-2">
-                                            <input type="text" name="tech_stacks[]" 
-                                                class="flex-grow border border-slate-300 rounded-lg shadow-sm focus:border-sky-500 focus:ring focus:ring-sky-500/20 mt-2 transition-colors">
-                                            <button type="button" onclick="removeTechStackField(this)" class="text-red-400 hover:text-red-600 transition-colors mt-2 p-2">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
-                                                    <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
-                                                </svg>
-                                            </button>
-                                        </div>
+                                        @if(old('tech_stacks'))
+                                            @foreach(old('tech_stacks') as $index => $oldTech)
+                                                <div class="flex items-center gap-2 mb-2">
+                                                    <input type="text" name="tech_stacks[]" value="{{ $oldTech }}"
+                                                        class="flex-grow border border-slate-300 rounded-lg shadow-sm focus:border-sky-500 focus:ring focus:ring-sky-500/20 mt-2 transition-colors">
+                                                    <button type="button" onclick="removeTechStackField(this)" class="text-red-400 hover:text-red-600 transition-colors mt-2 p-2">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+                                                            <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+                                                        </svg>
+                                                    </button>
+                                                </div>
+                                            @endforeach
+                                        @else
+                                            <div class="flex items-center gap-2 mb-2">
+                                                <input type="text" name="tech_stacks[]" 
+                                                    class="flex-grow border border-slate-300 rounded-lg shadow-sm focus:border-sky-500 focus:ring focus:ring-sky-500/20 mt-2 transition-colors">
+                                                <button type="button" onclick="removeTechStackField(this)" class="text-red-400 hover:text-red-600 transition-colors mt-2 p-2">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+                                                        <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        @endif
                                     </div>
+                                    @error('tech_stacks')
+                                        <p class="text-sm text-red-500 mt-1.5 flex items-center font-medium">
+                                            <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                                            {{ $message }}
+                                        </p>
+                                    @enderror
                                     <button type="button" onclick="addTechStackField()" class="mt-3 inline-flex items-center px-4 py-2 border border-sky-200 shadow-sm text-sm font-medium rounded-lg text-sky-700 bg-sky-50 hover:bg-sky-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 transition-colors">
                                         Add Tech Stack
                                     </button>
@@ -69,54 +113,98 @@
                                 <div class="md:col-span-2">
                                     <label class="block text-sm font-semibold text-slate-700">Project Links</label>
                                     <div id="project-links-container">
-                                        <div class="grid grid-cols-12 gap-2 mb-2">
-                                            <div class="col-span-5">
-                                                <select name="link_types[]" class="block w-full border border-slate-300 rounded-lg shadow-sm focus:border-sky-500 focus:ring focus:ring-sky-500/20 mt-2 transition-colors">
-                                                    <option value="github">GitHub</option>
-                                                    <option value="demo">Live Demo</option>
-                                                    <option value="website">Website</option>
-                                                    <option value="other">Other</option>
-                                                </select>
+                                        @if(old('link_types'))
+                                            @foreach(old('link_types') as $index => $oldType)
+                                                <div class="grid grid-cols-12 gap-2 mb-2">
+                                                    <div class="col-span-5">
+                                                        <select name="link_types[]" class="block w-full border border-slate-300 rounded-lg shadow-sm focus:border-sky-500 focus:ring focus:ring-sky-500/20 mt-2 transition-colors">
+                                                            <option value="github" {{ $oldType === 'github' ? 'selected' : '' }}>GitHub</option>
+                                                            <option value="demo" {{ $oldType === 'demo' ? 'selected' : '' }}>Live Demo</option>
+                                                            <option value="website" {{ $oldType === 'website' ? 'selected' : '' }}>Website</option>
+                                                            <option value="other" {{ $oldType === 'other' ? 'selected' : '' }}>Other</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-span-6">
+                                                        <input type="url" name="links[]" value="{{ old('links.'.$index) }}" placeholder="URL" 
+                                                            class="block w-full border border-slate-300 rounded-lg shadow-sm focus:border-sky-500 focus:ring focus:ring-sky-500/20 mt-2 transition-colors">
+                                                    </div>
+                                                    <div class="col-span-1 flex items-center justify-center">
+                                                        <button type="button" onclick="removeProjectLinkField(this)" class="text-red-400 hover:text-red-600 transition-colors mt-2 p-2">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+                                                                <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+                                                            </svg>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        @else
+                                            <div class="grid grid-cols-12 gap-2 mb-2">
+                                                <div class="col-span-5">
+                                                    <select name="link_types[]" class="block w-full border border-slate-300 rounded-lg shadow-sm focus:border-sky-500 focus:ring focus:ring-sky-500/20 mt-2 transition-colors">
+                                                        <option value="github">GitHub</option>
+                                                        <option value="demo">Live Demo</option>
+                                                        <option value="website">Website</option>
+                                                        <option value="other">Other</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-span-6">
+                                                    <input type="url" name="links[]" placeholder="URL" 
+                                                        class="block w-full border border-slate-300 rounded-lg shadow-sm focus:border-sky-500 focus:ring focus:ring-sky-500/20 mt-2 transition-colors">
+                                                </div>
+                                                <div class="col-span-1 flex items-center justify-center">
+                                                    <button type="button" onclick="removeProjectLinkField(this)" class="text-red-400 hover:text-red-600 transition-colors mt-2 p-2">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+                                                            <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+                                                        </svg>
+                                                    </button>
+                                                </div>
                                             </div>
-                                            <div class="col-span-6">
-                                                <input type="url" name="links[]" placeholder="URL" 
-                                                    class="block w-full border border-slate-300 rounded-lg shadow-sm focus:border-sky-500 focus:ring focus:ring-sky-500/20 mt-2 transition-colors">
-                                            </div>
-                                            <div class="col-span-1 flex items-center justify-center">
-                                                <button type="button" onclick="removeProjectLinkField(this)" class="text-red-400 hover:text-red-600 transition-colors mt-2 p-2">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
-                                                        <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
-                                                    </svg>
-                                                </button>
-                                            </div>
-                                        </div>
+                                        @endif
                                     </div>
+                                    @error('links')
+                                        <p class="text-sm text-red-500 mt-1.5 flex items-center font-medium">
+                                            <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                                            {{ $message }}
+                                        </p>
+                                    @enderror
                                     <button type="button" onclick="addProjectLinkField()" class="mt-3 inline-flex items-center px-4 py-2 border border-sky-200 shadow-sm text-sm font-medium rounded-lg text-sky-700 bg-sky-50 hover:bg-sky-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 transition-colors">
                                         Add Project Link
                                     </button>
                                 </div>
 
                                 <div class="md:col-span-2">
-                                    <label for="images" class="block text-sm font-semibold text-slate-700">Project Images</label>
+                                    <label for="images" class="block text-sm font-semibold text-slate-700">Project Images (JPG/PNG/GIF up to 5MB each)</label>
                                     <input type="file" name="images[]" id="images" multiple accept="image/*"
-                                        class="mt-2 block w-full border border-slate-300 rounded-lg shadow-sm focus:border-sky-500 focus:ring focus:ring-sky-500/20 text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-sky-50 file:text-sky-700 hover:file:bg-sky-100 transition-colors"
+                                        class="mt-2 block w-full rounded-lg shadow-sm focus:border-sky-500 focus:ring focus:ring-sky-500/20 text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-sky-50 file:text-sky-700 hover:file:bg-sky-100 transition-colors @error('images.*') border-red-300 @else border-slate-300 @enderror"
                                         onchange="previewMultipleImages(event)">
                                     
                                     @error('images')
-                                        <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                                        <p class="text-sm text-red-500 mt-1.5 flex items-center font-medium">
+                                            <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                                            {{ $message }}
+                                        </p>
+                                    @enderror
+                                    @error('images.*')
+                                        <p class="text-sm text-red-500 mt-1.5 flex items-center font-medium">
+                                            <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                                            {{ $message }}
+                                        </p>
                                     @enderror
 
                                     <div id="images-preview" class="mt-4 flex flex-wrap gap-2"></div>
                                 </div>
 
                                 <div class="md:col-span-2">
-                                    <label for="thumbnail" class="block text-sm font-semibold text-slate-700">Project Thumbnail</label>
+                                    <label for="thumbnail" class="block text-sm font-semibold text-slate-700">Project Thumbnail (JPG/PNG/GIF up to 5MB)</label>
                                     <input type="file" name="thumbnail" id="thumbnail" accept="image/*"
-                                        class="mt-2 block w-full border border-slate-300 rounded-lg shadow-sm focus:border-sky-500 focus:ring focus:ring-sky-500/20 text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-sky-50 file:text-sky-700 hover:file:bg-sky-100 transition-colors"
+                                        class="mt-2 block w-full rounded-lg shadow-sm focus:border-sky-500 focus:ring focus:ring-sky-500/20 text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-sky-50 file:text-sky-700 hover:file:bg-sky-100 transition-colors @error('thumbnail') border-red-300 @else border-slate-300 @enderror"
                                         onchange="previewThumbnail(event)">
                                     
                                     @error('thumbnail')
-                                        <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                                        <p class="text-sm text-red-500 mt-1.5 flex items-center font-medium">
+                                            <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                                            {{ $message }}
+                                        </p>
                                     @enderror
 
                                     <div id="thumbnail-preview" class="mt-4"></div>
@@ -233,11 +321,11 @@
 
                                 @if($project->images->isNotEmpty())
                                     <div class="relative mb-8 rounded-2xl overflow-hidden shadow-lg border border-slate-100 group">
-                                        <div class="slider-container overflow-hidden bg-slate-100">
+                                        <div class="slider-container overflow-hidden bg-slate-950">
                                             <div class="slider-wrapper flex transition-transform duration-300" id="project{{ $project->id }}-slider">
                                                 @foreach($project->images as $image)
-                                                    <div class="w-full flex-shrink-0">
-                                                        <img src="{{ asset('storage/' . $image->image) }}" alt="{{ $project->title }}" class="w-full h-80 md:h-[400px] object-cover">
+                                                    <div class="w-full flex-shrink-0 h-80 md:h-[400px] flex items-center justify-center">
+                                                        <img src="{{ asset('storage/' . $image->image) }}" alt="{{ $project->title }}" class="max-w-full max-h-full object-contain">
                                                     </div>
                                                 @endforeach
                                             </div>

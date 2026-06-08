@@ -33,74 +33,128 @@
                     </h2>
 
                     <div class="max-w-4xl mx-auto p-8 bg-slate-50/50 shadow-inner rounded-xl border border-slate-100">
-                        <form action="{{ route('experiences.store') }}" method="POST" enctype="multipart/form-data" x-data="{ isCurrent: false, endDate: '' }">
+                        <form action="{{ route('experiences.store') }}" method="POST" enctype="multipart/form-data" x-data="{ isCurrent: {{ old('isCurrent') ? 'true' : 'false' }}, endDate: '{{ old('end_date') }}' }">
                             @csrf
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
                                     <label for="title" class="block text-sm font-semibold text-slate-700">Role / Position Title</label>
-                                    <input type="text" name="title" id="title" placeholder="e.g. Chairman of Campus Hackathon" required
-                                        class="mt-2 block w-full border border-slate-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500/20 transition-colors">
+                                    <input type="text" name="title" id="title" placeholder="e.g. Chairman of Campus Hackathon" value="{{ old('title') }}" required
+                                        class="mt-2 block w-full rounded-lg shadow-sm transition-colors @error('title') border-red-300 focus:border-blue-500 focus:ring focus:ring-blue-500/20 @else border-slate-300 focus:border-blue-500 focus:ring focus:ring-blue-500/20 @enderror">
+                                    @error('title')
+                                        <p class="text-sm text-red-500 mt-1.5 flex items-center font-medium">
+                                            <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                                            {{ $message }}
+                                        </p>
+                                    @enderror
                                 </div>
 
                                 <div>
                                     <label for="organization" class="block text-sm font-semibold text-slate-700">Organization / Event Name</label>
-                                    <input type="text" name="organization" id="organization" placeholder="e.g. Informatics Student Association" required
-                                        class="mt-2 block w-full border border-slate-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500/20 transition-colors">
+                                    <input type="text" name="organization" id="organization" placeholder="e.g. Informatics Student Association" value="{{ old('organization') }}" required
+                                        class="mt-2 block w-full rounded-lg shadow-sm transition-colors @error('organization') border-red-300 focus:border-blue-500 focus:ring focus:ring-blue-500/20 @else border-slate-300 focus:border-blue-500 focus:ring focus:ring-blue-500/20 @enderror">
+                                    @error('organization')
+                                        <p class="text-sm text-red-500 mt-1.5 flex items-center font-medium">
+                                            <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                                            {{ $message }}
+                                        </p>
+                                    @enderror
                                 </div>
 
                                 <div>
                                     <label for="start_date" class="block text-sm font-semibold text-slate-700">Start Date</label>
-                                    <input type="date" name="start_date" id="start_date" required
-                                        class="mt-2 block w-full border border-slate-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500/20 transition-colors">
+                                    <input type="date" name="start_date" id="start_date" value="{{ old('start_date') }}" required
+                                        class="mt-2 block w-full rounded-lg shadow-sm transition-colors @error('start_date') border-red-300 focus:border-blue-500 focus:ring focus:ring-blue-500/20 @else border-slate-300 focus:border-blue-500 focus:ring focus:ring-blue-500/20 @enderror">
+                                    @error('start_date')
+                                        <p class="text-sm text-red-500 mt-1.5 flex items-center font-medium">
+                                            <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                                            {{ $message }}
+                                        </p>
+                                    @enderror
                                 </div>
 
                                 <div>
                                     <div class="flex items-center justify-between">
                                         <label for="end_date" class="block text-sm font-semibold text-slate-700">End Date</label>
                                         <label class="inline-flex items-center text-xs text-slate-500 cursor-pointer">
-                                            <input type="checkbox" class="rounded border-slate-300 text-blue-600 focus:ring-blue-500 mr-1.5" x-model="isCurrent" @change="if(isCurrent) { endDate = ''; }">
+                                            <input type="checkbox" name="isCurrent" value="1" class="rounded border-slate-300 text-blue-600 focus:ring-blue-500 mr-1.5" x-model="isCurrent" @change="if(isCurrent) { endDate = ''; }">
                                             <span>Currently Active / Present</span>
                                         </label>
                                     </div>
                                     <input type="date" name="end_date" id="end_date" x-bind:disabled="isCurrent" x-model="endDate"
-                                        class="mt-2 block w-full border border-slate-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500/20 transition-colors disabled:bg-slate-100 disabled:text-slate-400">
+                                        class="mt-2 block w-full rounded-lg shadow-sm transition-colors disabled:bg-slate-100 disabled:text-slate-400 @error('end_date') border-red-300 focus:border-blue-500 focus:ring focus:ring-blue-500/20 @else border-slate-300 focus:border-blue-500 focus:ring focus:ring-blue-500/20 @enderror">
+                                    @error('end_date')
+                                        <p class="text-sm text-red-500 mt-1.5 flex items-center font-medium">
+                                            <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                                            {{ $message }}
+                                        </p>
+                                    @enderror
                                 </div>
 
                                 <div>
                                     <label for="type" class="block text-sm font-semibold text-slate-700">Involvement Type</label>
                                     <select name="type" id="type" required
-                                        class="mt-2 block w-full border border-slate-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500/20 transition-colors">
-                                        <option value="Committee">Committee</option>
-                                        <option value="Member">Member</option>
-                                        <option value="Leader">Leader</option>
-                                        <option value="Volunteer">Volunteer</option>
-                                        <option value="Full Time">Full Time</option>
-                                        <option value="Internship">Internship</option>
+                                        class="mt-2 block w-full rounded-lg shadow-sm transition-colors @error('type') border-red-300 focus:border-blue-500 focus:ring focus:ring-blue-500/20 @else border-slate-300 focus:border-blue-500 focus:ring focus:ring-blue-500/20 @enderror">
+                                        <option value="Committee" {{ old('type') === 'Committee' ? 'selected' : '' }}>Committee</option>
+                                        <option value="Member" {{ old('type') === 'Member' ? 'selected' : '' }}>Member</option>
+                                        <option value="Leader" {{ old('type') === 'Leader' ? 'selected' : '' }}>Leader</option>
+                                        <option value="Volunteer" {{ old('type') === 'Volunteer' ? 'selected' : '' }}>Volunteer</option>
+                                        <option value="Full Time" {{ old('type') === 'Full Time' ? 'selected' : '' }}>Full Time</option>
+                                        <option value="Internship" {{ old('type') === 'Internship' ? 'selected' : '' }}>Internship</option>
                                     </select>
+                                    @error('type')
+                                        <p class="text-sm text-red-500 mt-1.5 flex items-center font-medium">
+                                            <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                                            {{ $message }}
+                                        </p>
+                                    @enderror
                                 </div>
 
                                 <div>
                                     <label for="category" class="block text-sm font-semibold text-slate-700">Category Tag</label>
-                                    <input type="text" name="category" id="category" placeholder="e.g. Leadership, Technical, Operations" required
-                                        class="mt-2 block w-full border border-slate-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500/20 transition-colors">
+                                    <input type="text" name="category" id="category" placeholder="e.g. Leadership, Technical, Operations" value="{{ old('category') }}" required
+                                        class="mt-2 block w-full rounded-lg shadow-sm transition-colors @error('category') border-red-300 focus:border-blue-500 focus:ring focus:ring-blue-500/20 @else border-slate-300 focus:border-blue-500 focus:ring focus:ring-blue-500/20 @enderror">
+                                    @error('category')
+                                        <p class="text-sm text-red-500 mt-1.5 flex items-center font-medium">
+                                            <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                                            {{ $message }}
+                                        </p>
+                                    @enderror
                                 </div>
 
                                 <div class="md:col-span-2">
                                     <label for="skills" class="block text-sm font-semibold text-slate-700">Skills Gained (comma-separated)</label>
-                                    <input type="text" name="skills" id="skills" placeholder="e.g. Teamwork, Laravel, Git"
-                                        class="mt-2 block w-full border border-slate-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500/20 transition-colors">
+                                    <input type="text" name="skills" id="skills" placeholder="e.g. Teamwork, Laravel, Git" value="{{ old('skills') }}"
+                                        class="mt-2 block w-full rounded-lg shadow-sm transition-colors @error('skills') border-red-300 focus:border-blue-500 focus:ring focus:ring-blue-500/20 @else border-slate-300 focus:border-blue-500 focus:ring focus:ring-blue-500/20 @enderror">
+                                    @error('skills')
+                                        <p class="text-sm text-red-500 mt-1.5 flex items-center font-medium">
+                                            <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                                            {{ $message }}
+                                        </p>
+                                    @enderror
                                 </div>
 
                                 <div class="md:col-span-2">
                                     <label for="description" class="block text-sm font-semibold text-slate-700">Detailed Description</label>
                                     <textarea name="description" id="description" rows="4" placeholder="Describe your responsibilities and achievements..." required
-                                        class="mt-2 block w-full border border-slate-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500/20 transition-colors"></textarea>
+                                        class="mt-2 block w-full rounded-lg shadow-sm transition-colors @error('description') border-red-300 focus:border-blue-500 focus:ring focus:ring-blue-500/20 @else border-slate-300 focus:border-blue-500 focus:ring focus:ring-blue-500/20 @enderror">{{ old('description') }}</textarea>
+                                    @error('description')
+                                        <p class="text-sm text-red-500 mt-1.5 flex items-center font-medium">
+                                            <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                                            {{ $message }}
+                                        </p>
+                                    @enderror
                                 </div>
 
                                 <div class="md:col-span-2">
-                                    <label for="image" class="block text-sm font-semibold text-slate-700">Event Image (optional - defaults to category placeholder if empty)</label>
+                                    <label for="image" class="block text-sm font-semibold text-slate-700">Event Image (optional - JPG/PNG/GIF up to 5MB)</label>
                                     <input type="file" name="image" id="image" accept="image/*"
-                                        class="mt-2 block w-full border border-slate-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500/20 text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 transition-colors">
+                                        class="mt-2 block w-full rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500/20 text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 transition-colors @error('image') border-red-300 @else border-slate-300 @enderror">
+                                    @error('image')
+                                        <p class="text-sm text-red-500 mt-1.5 flex items-center font-medium">
+                                            <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                                            {{ $message }}
+                                        </p>
+                                    @enderror
                                 </div>
                             </div>
 

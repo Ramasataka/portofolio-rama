@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Http\Requests\UpdateInformationRequest;
+use App\Http\Requests\UploadCvRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -16,21 +18,11 @@ class DashboardController extends Controller
         return view('dashboard', compact('user', 'skills'));
     }
 
-    public function updateInformation(Request $request)
+    public function updateInformation(UpdateInformationRequest $request)
     {
         $user = User::first();
     
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email_contact' => 'required|email|max:255',
-            'phone_contact' => 'required|string|max:20',
-            'github_link' => 'nullable|url',
-            'linkedin_link' => 'nullable|url',
-            'description' => 'nullable|string',
-            'role' => 'required|string|max:255',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif',
-            'available_for_work' => 'nullable|boolean',
-        ]);
+        $validated = $request->validated();
 
         try {
             $validated['email_contanct'] = $validated['email_contact'];
@@ -54,11 +46,9 @@ class DashboardController extends Controller
     }
     }
 
-    public function uploadCv(Request $request)
+    public function uploadCv(UploadCvRequest $request)
     {
-        $request->validate([
-            'cv_file' => 'required|mimes:pdf|max:2048',
-        ]);
+        $validated = $request->validated();
 
         $user = Auth::user();
 

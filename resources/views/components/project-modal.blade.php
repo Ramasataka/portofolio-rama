@@ -13,11 +13,11 @@
 
             @if($project->images->isNotEmpty())
                 <div class="relative mb-8 rounded-2xl overflow-hidden shadow-lg border border-slate-100 group">
-                    <div class="slider-container overflow-hidden bg-slate-100">
+                    <div class="slider-container overflow-hidden bg-slate-950">
                         <div class="slider-wrapper flex transition-transform duration-300" id="project{{ $project->id }}-slider">
                             @foreach($project->images as $image)
-                                <div class="w-full flex-shrink-0">
-                                    <img src="{{ asset('storage/' . $image->image) }}" alt="{{ $project->title }}" class="w-full h-80 md:h-[400px] object-cover">
+                                <div class="w-full flex-shrink-0 h-80 md:h-[400px] flex items-center justify-center">
+                                    <img src="{{ asset('storage/' . $image->image) }}" alt="{{ $project->title }}" class="max-w-full max-h-full object-contain">
                                 </div>
                             @endforeach
                         </div>

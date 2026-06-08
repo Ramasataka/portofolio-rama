@@ -38,32 +38,62 @@
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
                                     <label for="name" class="block text-sm font-semibold text-slate-700">Certification Name / Title</label>
-                                    <input type="text" name="name" id="name" placeholder="e.g. Laravel Certified Developer" required
-                                        class="mt-2 block w-full border border-slate-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500/20 transition-colors">
+                                    <input type="text" name="name" id="name" placeholder="e.g. Laravel Certified Developer" value="{{ old('name') }}" required
+                                        class="mt-2 block w-full rounded-lg shadow-sm transition-colors @error('name') border-red-300 focus:border-blue-500 focus:ring focus:ring-blue-500/20 @else border-slate-300 focus:border-blue-500 focus:ring focus:ring-blue-500/20 @enderror">
+                                    @error('name')
+                                        <p class="text-sm text-red-500 mt-1.5 flex items-center font-medium">
+                                            <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                                            {{ $message }}
+                                        </p>
+                                    @enderror
                                 </div>
 
                                 <div>
                                     <label for="issuer" class="block text-sm font-semibold text-slate-700">Issuing Organization</label>
-                                    <input type="text" name="issuer" id="issuer" placeholder="e.g. Laravel Organization / Google Cloud" required
-                                        class="mt-2 block w-full border border-slate-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500/20 transition-colors">
+                                    <input type="text" name="issuer" id="issuer" placeholder="e.g. Laravel Organization / Google Cloud" value="{{ old('issuer') }}" required
+                                        class="mt-2 block w-full rounded-lg shadow-sm transition-colors @error('issuer') border-red-300 focus:border-blue-500 focus:ring focus:ring-blue-500/20 @else border-slate-300 focus:border-blue-500 focus:ring focus:ring-blue-500/20 @enderror">
+                                    @error('issuer')
+                                        <p class="text-sm text-red-500 mt-1.5 flex items-center font-medium">
+                                            <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                                            {{ $message }}
+                                        </p>
+                                    @enderror
                                 </div>
 
                                 <div class="md:col-span-2">
                                     <label for="year" class="block text-sm font-semibold text-slate-700">Year of Issuance</label>
-                                    <input type="text" name="year" id="year" placeholder="e.g. 2024 / May 2024" required
-                                        class="mt-2 block w-full border border-slate-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500/20 transition-colors">
+                                    <input type="text" name="year" id="year" placeholder="e.g. 2024 / May 2024" value="{{ old('year') }}" required
+                                        class="mt-2 block w-full rounded-lg shadow-sm transition-colors @error('year') border-red-300 focus:border-blue-500 focus:ring focus:ring-blue-500/20 @else border-slate-300 focus:border-blue-500 focus:ring focus:ring-blue-500/20 @enderror">
+                                    @error('year')
+                                        <p class="text-sm text-red-500 mt-1.5 flex items-center font-medium">
+                                            <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                                            {{ $message }}
+                                        </p>
+                                    @enderror
                                 </div>
 
                                 <div class="md:col-span-2">
                                     <label for="description" class="block text-sm font-semibold text-slate-700">Description / Key Knowledge Verified</label>
                                     <textarea name="description" id="description" rows="4" placeholder="Describe the topics and skills this credential verifies..." required
-                                        class="mt-2 block w-full border border-slate-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500/20 transition-colors"></textarea>
+                                        class="mt-2 block w-full rounded-lg shadow-sm transition-colors @error('description') border-red-300 focus:border-blue-500 focus:ring focus:ring-blue-500/20 @else border-slate-300 focus:border-blue-500 focus:ring focus:ring-blue-500/20 @enderror">{{ old('description') }}</textarea>
+                                    @error('description')
+                                        <p class="text-sm text-red-500 mt-1.5 flex items-center font-medium">
+                                            <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                                            {{ $message }}
+                                        </p>
+                                    @enderror
                                 </div>
 
                                 <div class="md:col-span-2">
-                                    <label for="image" class="block text-sm font-semibold text-slate-700">Credential Photo / Certificate (optional)</label>
+                                    <label for="image" class="block text-sm font-semibold text-slate-700">Credential Photo / Certificate (optional - JPG/PNG/GIF up to 5MB)</label>
                                     <input type="file" name="image" id="image" accept="image/*"
-                                        class="mt-2 block w-full border border-slate-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500/20 text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 transition-colors">
+                                        class="mt-2 block w-full rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500/20 text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 transition-colors @error('image') border-red-300 @else border-slate-300 @enderror">
+                                    @error('image')
+                                        <p class="text-sm text-red-500 mt-1.5 flex items-center font-medium">
+                                            <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                                            {{ $message }}
+                                        </p>
+                                    @enderror
                                 </div>
                             </div>
 
