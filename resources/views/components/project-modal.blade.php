@@ -50,9 +50,27 @@
                 <div class="space-y-6">
                     <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100">
                         <h4 class="font-bold mb-4 text-slate-800 text-sm uppercase tracking-wider">Technologies</h4>
-                        <div class="flex flex-wrap gap-2">
+                        <div class="space-y-4">
                             @foreach($project->tech_stacks as $tech)
-                                <span class="px-3 py-1.5 bg-white border border-slate-200 text-slate-700 rounded-lg text-sm font-medium shadow-sm hover:border-blue-300 transition-colors">{{ $tech->tech_stack }}</span>
+                                @php
+                                    $parts = explode(':', $tech->tech_stack, 2);
+                                @endphp
+                                @if(count($parts) === 2)
+                                    <div class="space-y-1.5">
+                                        <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">
+                                            {{ trim($parts[0]) }}
+                                        </span>
+                                        <div class="flex flex-wrap gap-1.5">
+                                            @foreach(explode(',', $parts[1]) as $sub)
+                                                <span class="px-3 py-1.5 bg-white border border-slate-200 text-slate-700 rounded-lg text-xs font-medium shadow-sm hover:border-blue-300 transition-colors">
+                                                    {{ trim($sub) }}
+                                                </span>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                @else
+                                    <span class="px-3 py-1.5 bg-white border border-slate-200 text-slate-700 rounded-lg text-sm font-medium shadow-sm hover:border-blue-300 transition-colors">{{ $tech->tech_stack }}</span>
+                                @endif
                             @endforeach
                         </div>
                     </div>

@@ -95,7 +95,71 @@ class ProjectController extends Controller
      */
     public function update(UpdateProjectRequest $request, Project $project)
     {
-        //
+        $validated = $request->validated();
+
+        $path_thumbnail = $project->thumbnail;
+        if ($request->hasFile('thumbnail')) {
+            // Delete old thumbnail
+            if ($project->thumbnail) {
+                Storage::delete('public/' . $project->thumbnail);
+            }
+            $path_thumbnail = $request->file('thumbnail')->store('thumbnail', 'public');
+        }
+
+        // Update project
+        $project->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'key_feature' => $request->key_feature,
+            'description_thumbnail' => $request->description_thumbnail,
+            'thumbnail' => $path_thumbnail
+        ]);
+
+        // Sync link projects (delete and recreate)
+        $project->link_projects()->delete();
+        if ($request->has('link_types') && is_array($request->link_types)) {
+            foreach ($request->link_types as $index => $type) {
+                if ($type && !empty($request->links[$index])) {
+                    $project->link_projects()->create([
+                        'link' => $request->links[$index],
+                        'links_type' => $type
+                    ]);
+                }
+            }
+        }
+
+        // Sync tech stacks (delete and recreate)
+        $project->tech_stacks()->delete();
+        if ($request->has('tech_stacks') && is_array($request->tech_stacks)) {
+            foreach ($request->tech_stacks as $tech) {
+                if (!empty($tech)) {
+                    $project->tech_stacks()->create([
+                        'tech_stack' => $tech
+                    ]);
+                }
+            }
+        }
+
+        // Delete selected gallery images
+        if ($request->has('delete_images') && is_array($request->delete_images)) {
+            foreach ($request->delete_images as $imageId) {
+                $image = $project->images()->find($imageId);
+                if ($image) {
+                    Storage::delete('public/' . $image->image);
+                    $image->delete();
+                }
+            }
+        }
+
+        // Simpan gambar baru
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $path = $image->store('project_images', 'public');
+                $project->images()->create(['image' => $path]);
+            }
+        }
+
+        return back()->with('success', 'Project updated successfully');
     }
 
     /**

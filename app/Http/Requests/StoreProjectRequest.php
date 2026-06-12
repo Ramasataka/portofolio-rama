@@ -27,10 +27,6 @@ class StoreProjectRequest extends FormRequest
             'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif|max:5120',
             'description_thumbnail' => 'required|string',
             'key_feature' => 'required|string',
-            'link_types' => 'required|array',
-            'link_types.*' => 'required|string',
-            'links' => 'required|array',
-            'links.*' => 'required|url',
             'tech_stacks' => 'required|array',
             'tech_stacks.*' => 'required|string',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:5120'

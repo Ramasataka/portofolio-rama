@@ -18,7 +18,7 @@ Route::post('/contact', [ContactController::class, 'send'])->name('contact.send'
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::resource('projects', ProjectController::class)->only(['index', 'store', 'destroy']);
+    Route::resource('projects', ProjectController::class)->only(['index', 'store', 'update', 'destroy']);
     Route::resource('experiences', ExperienceController::class)->only(['index', 'store', 'destroy']);
     Route::resource('certifications', CertificationController::class)->only(['index', 'store', 'destroy']);
     Route::post('/profile/upload-cv', [DashboardController::class, 'uploadCv'])->name('profile.uploadCv');

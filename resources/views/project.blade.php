@@ -253,9 +253,25 @@
                             <tr class="hover:bg-slate-50 transition-colors duration-150">
                                 <td class="px-6 py-4 whitespace-nowrap font-medium text-slate-800">{{ $project->title }}</td>
                                 <td class="px-6 py-4">
-                                    @foreach($project->tech_stacks as $tech)
-                                        <span class="inline-block bg-slate-100 rounded-md px-2.5 py-1 text-xs font-semibold text-slate-600 mr-1 mb-1 border border-slate-200">{{ $tech->tech_stack }}</span>
-                                    @endforeach
+                                    <div class="space-y-1.5 max-w-md">
+                                        @foreach($project->tech_stacks as $tech)
+                                            @php
+                                                $parts = explode(':', $tech->tech_stack, 2);
+                                            @endphp
+                                            @if(count($parts) === 2)
+                                                <div class="flex items-center gap-1.5">
+                                                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider shrink-0 w-20">{{ trim($parts[0]) }}</span>
+                                                    <div class="flex flex-wrap gap-0.5">
+                                                        @foreach(explode(',', $parts[1]) as $sub)
+                                                            <span class="inline-block bg-slate-100 rounded px-1.5 py-0.5 text-[10px] font-semibold text-slate-600 mr-0.5 mb-0.5 border border-slate-200">{{ trim($sub) }}</span>
+                                                        @endforeach
+                                                    </div>
+                                                </div>
+                                            @else
+                                                <span class="inline-block bg-slate-100 rounded px-1.5 py-0.5 text-[10px] font-semibold text-slate-600 mr-0.5 mb-0.5 border border-slate-200">{{ $tech->tech_stack }}</span>
+                                            @endif
+                                        @endforeach
+                                    </div>
                                 </td>
                                 <td class="px-6 py-4">
                                     @foreach($project->link_projects as $link)
@@ -282,17 +298,33 @@
                 @foreach($projects as $project)
                     <div class="group bg-white rounded-2xl shadow-md border border-slate-100 overflow-hidden cursor-pointer transform transition-all duration-300 hover:-translate-y-2 hover:shadow-xl flex flex-col" 
                         onclick="openProjectModal('project{{ $project->id }}')">
-                        <div class="h-64 relative overflow-hidden bg-slate-100 flex items-center justify-center">
-                            <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"></div>
-                            <img src="{{ asset('storage/' . $project->thumbnail) }}" alt="{{ $project->title }}" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out">
+                        <div class="h-64 relative overflow-hidden bg-slate-950 flex items-center justify-center">
+                            <!-- Blurred Backdrop -->
+                            <img src="{{ asset('storage/' . $project->thumbnail) }}" alt="" class="absolute inset-0 w-full h-full object-cover blur-2xl opacity-40 scale-110 pointer-events-none">
+                            <!-- Main Contain Image -->
+                            <img src="{{ asset('storage/' . $project->thumbnail) }}" alt="{{ $project->title }}" class="relative z-10 max-w-full max-h-full object-contain transform group-hover:scale-105 transition-transform duration-700 ease-out">
                         </div>
                         <div class="p-8 flex flex-col flex-grow">
                             <h3 class="text-2xl font-bold mb-3 text-slate-800 group-hover:text-sky-600 transition-colors">{{ $project->title }}</h3>
                             <p class="text-slate-500 flex-grow">{{ Str::limit($project->description_thumbnail, 100) }}</p>
                             
-                            <div class="mt-6 pt-4 border-t border-slate-100 flex flex-wrap gap-2">
+                            <div class="mt-6 pt-4 border-t border-slate-100 space-y-2.5">
                                 @foreach($project->tech_stacks as $tech)
-                                    <span class="px-3 py-1 bg-slate-50 text-slate-600 border border-slate-200 rounded-lg text-xs font-semibold">{{ $tech->tech_stack }}</span>
+                                    @php
+                                        $parts = explode(':', $tech->tech_stack, 2);
+                                    @endphp
+                                    @if(count($parts) === 2)
+                                        <div class="flex flex-col gap-1">
+                                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">{{ trim($parts[0]) }}</span>
+                                            <div class="flex flex-wrap gap-1">
+                                                @foreach(explode(',', $parts[1]) as $sub)
+                                                    <span class="px-2 py-0.5 bg-blue-50/50 text-blue-700 border border-blue-100 rounded-md text-[11px] font-medium">{{ trim($sub) }}</span>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    @else
+                                        <span class="px-2.5 py-1 bg-slate-50 text-slate-600 border border-slate-200 rounded-lg text-xs font-medium">{{ $tech->tech_stack }}</span>
+                                    @endif
                                 @endforeach
                             </div>
                             <div class="mt-4 flex flex-wrap gap-3">
@@ -372,9 +404,27 @@
                                     <div class="space-y-6">
                                         <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100">
                                             <h4 class="font-bold mb-4 text-slate-800 text-sm uppercase tracking-wider">Technologies</h4>
-                                            <div class="flex flex-wrap gap-2">
+                                            <div class="space-y-4">
                                                 @foreach($project->tech_stacks as $tech)
-                                                    <span class="px-3 py-1.5 bg-white border border-slate-200 text-slate-700 rounded-lg text-sm font-medium shadow-sm hover:border-sky-300 transition-colors">{{ $tech->tech_stack }}</span>
+                                                    @php
+                                                        $parts = explode(':', $tech->tech_stack, 2);
+                                                    @endphp
+                                                    @if(count($parts) === 2)
+                                                        <div class="space-y-1.5">
+                                                            <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">
+                                                                {{ trim($parts[0]) }}
+                                                            </span>
+                                                            <div class="flex flex-wrap gap-1.5">
+                                                                @foreach(explode(',', $parts[1]) as $sub)
+                                                                    <span class="px-3 py-1.5 bg-white border border-slate-200 text-slate-700 rounded-lg text-xs font-medium shadow-sm hover:border-sky-300 transition-colors">
+                                                                        {{ trim($sub) }}
+                                                                    </span>
+                                                                @endforeach
+                                                            </div>
+                                                        </div>
+                                                    @else
+                                                        <span class="px-3 py-1.5 bg-white border border-slate-200 text-slate-700 rounded-lg text-sm font-medium shadow-sm hover:border-sky-300 transition-colors">{{ $tech->tech_stack }}</span>
+                                                    @endif
                                                 @endforeach
                                             </div>
                                         </div>

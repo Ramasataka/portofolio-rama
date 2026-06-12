@@ -151,9 +151,11 @@
                                 @foreach ($projects as $project)
                                     <div class="flex-shrink-0 w-full min-w-full grid grid-cols-1 lg:grid-cols-12 gap-0 overflow-hidden animate-slide">
                                         <!-- Photo Left -->
-                                        <div class="lg:col-span-6 h-72 lg:h-[450px] relative overflow-hidden bg-slate-100 border-r border-slate-100">
-                                            <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 z-10"></div>
-                                            <img src="{{ asset('storage/' . $project->thumbnail) }}" alt="{{ $project->title }}" class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700 ease-out">
+                                        <div class="lg:col-span-6 h-72 lg:h-[450px] relative overflow-hidden bg-slate-950 flex items-center justify-center border-r border-slate-100">
+                                            <!-- Blurred Backdrop -->
+                                            <img src="{{ asset('storage/' . $project->thumbnail) }}" alt="" class="absolute inset-0 w-full h-full object-cover blur-2xl opacity-40 scale-110 pointer-events-none">
+                                            <!-- Main Contain Image -->
+                                            <img src="{{ asset('storage/' . $project->thumbnail) }}" alt="{{ $project->title }}" class="relative z-10 max-w-full max-h-full object-contain transform hover:scale-105 transition-transform duration-700 ease-out">
                                         </div>
                                         
                                         <!-- Content Right -->
@@ -170,13 +172,31 @@
                                                 </p>
                                                 
                                                 <div class="pt-2">
-                                                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block mb-2">Technologies Used</span>
-                                                    <div class="flex flex-wrap gap-1.5">
+                                                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block mb-3">Technologies Used</span>
+                                                    <div class="space-y-3">
                                                         @if ($project->tech_stacks->isEmpty())
                                                             <span class="text-slate-400 text-xs italic">No tech stack</span>
                                                         @else
                                                             @foreach ($project->tech_stacks as $tech_stack)
-                                                                <span class="px-2.5 py-1 bg-slate-50 text-slate-600 border border-slate-200 rounded-lg text-xs font-medium">{{ $tech_stack->tech_stack }}</span>
+                                                                @php
+                                                                    $parts = explode(':', $tech_stack->tech_stack, 2);
+                                                                @endphp
+                                                                @if(count($parts) === 2)
+                                                                    <div class="flex flex-col sm:flex-row sm:items-start gap-1.5 sm:gap-3">
+                                                                        <span class="text-[11px] font-bold text-slate-450 uppercase tracking-wider min-w-[110px] block shrink-0 pt-1">
+                                                                            {{ trim($parts[0]) }}
+                                                                        </span>
+                                                                        <div class="flex flex-wrap gap-1">
+                                                                            @foreach(explode(',', $parts[1]) as $sub)
+                                                                                <span class="px-2.5 py-1 bg-blue-50/50 text-blue-700 border border-blue-100 rounded-lg text-xs font-medium hover:bg-blue-100 transition-colors">
+                                                                                    {{ trim($sub) }}
+                                                                                </span>
+                                                                            @endforeach
+                                                                        </div>
+                                                                    </div>
+                                                                @else
+                                                                    <span class="px-2.5 py-1 bg-slate-50 text-slate-600 border border-slate-200 rounded-lg text-xs font-medium">{{ $tech_stack->tech_stack }}</span>
+                                                                @endif
                                                             @endforeach
                                                         @endif
                                                     </div>
@@ -266,8 +286,12 @@
                                 </div>
                                 
                                 <!-- Card Content -->
-                                <div @click="lightboxOpen = true; lightboxImage = '{{ $exp->preview_image }}'; lightboxTitle = '{{ $exp->title }}'; lightboxIssuer = '{{ $exp->organization }}'"
-                                     class="cursor-pointer p-6 md:p-8 bg-slate-50/50 border border-slate-100 hover:border-blue-100 hover:bg-white rounded-2xl hover:shadow-xl hover:shadow-blue-900/5 transition duration-300">
+                                <div @if($exp->image) 
+                                         @click="lightboxOpen = true; lightboxImage = '{{ asset('storage/' . $exp->image) }}'; lightboxTitle = '{{ $exp->title }}'; lightboxIssuer = '{{ $exp->organization }}'"
+                                         class="cursor-pointer p-6 md:p-8 bg-slate-50/50 border border-slate-100 hover:border-blue-100 hover:bg-white rounded-2xl hover:shadow-xl hover:shadow-blue-900/5 transition duration-300"
+                                     @else
+                                         class="p-6 md:p-8 bg-slate-50/50 border border-slate-100 rounded-2xl transition duration-300"
+                                     @endif>
                                     <!-- Date badge for mobile -->
                                     <span class="inline-block md:hidden px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-xs font-bold mb-3">{{ $exp->period }}</span>
                                     
@@ -291,10 +315,12 @@
                                         </div>
                                     @endif
 
-                                    <div class="border-t border-slate-100 pt-3 flex items-center justify-between text-xs text-blue-600 font-semibold group-hover:translate-x-1 transition-transform">
-                                        <span>Click to see event photo</span>
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                                    </div>
+                                    @if($exp->image)
+                                        <div class="border-t border-slate-100 pt-3 flex items-center justify-between text-xs text-blue-600 font-semibold group-hover:translate-x-1 transition-transform">
+                                            <span>Click to see event photo</span>
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         @endforeach

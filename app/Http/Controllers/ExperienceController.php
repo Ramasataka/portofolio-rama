@@ -14,7 +14,7 @@ class ExperienceController extends Controller
      */
     public function index()
     {
-        $experiences = Experience::orderBy('start_date', 'desc')->get();
+        $experiences = Experience::orderByRaw('end_date IS NULL DESC, end_date DESC')->get();
         return view('profile.experience', compact('experiences'));
     }
 
